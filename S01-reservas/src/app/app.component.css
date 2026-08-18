@@ -1,0 +1,301 @@
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: #f4f7fb;
+  color: #1f2937;
+}
+
+.contenedor {
+  min-height: 100vh;
+}
+
+/* HEADER */
+
+.header {
+  height: 70px;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 8%;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: bold;
+  color: #6924c3;
+}
+
+.resaltado {
+  color: #8f25eb;
+}
+
+nav {
+  display: flex;
+  gap: 30px;
+}
+
+nav a {
+  text-decoration: none;
+  color: #374151;
+  font-weight: 500;
+}
+
+nav a:hover {
+  color: #9525eb;
+}
+
+/* HERO */
+
+.hero {
+  min-height: 420px;
+  padding: 70px 10%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: linear-gradient(135deg, #e0f2fe, #eff6ff);
+}
+
+.hero-texto {
+  max-width: 600px;
+}
+
+.hero h1 {
+  font-size: 48px;
+  margin-bottom: 20px;
+  color: #621e8a;
+}
+
+.hero p {
+  font-size: 20px;
+  line-height: 1.6;
+  color: #4b5563;
+  margin-bottom: 35px;
+}
+
+.boton-principal {
+  display: inline-block;
+  padding: 14px 28px;
+  background: #2563eb;
+  color: white;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: bold;
+}
+
+.boton-principal:hover {
+  background: #982ad3;
+}
+
+.hero-icono {
+  font-size: 150px;
+}
+
+/* RESERVA */
+
+.reserva-section {
+  padding: 70px 10%;
+  background: white;
+}
+
+.titulo {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.titulo h2 {
+  color: #661e8a;
+  font-size: 32px;
+}
+
+.titulo p {
+  color: #6b7280;
+}
+
+.formulario {
+  max-width: 850px;
+  margin: auto;
+  padding: 35px;
+  background: #f8fafc;
+  border-radius: 15px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 25px;
+}
+
+.campo {
+  display: flex;
+  flex-direction: column;
+}
+
+.campo label {
+  margin-bottom: 8px;
+  font-weight: bold;
+  color: #374151;
+}
+
+.campo input,
+.campo select {
+  padding: 13px;
+  border: 1px solid #d1d5db;
+  border-radius: 7px;
+  font-size: 15px;
+  background: white;
+}
+
+.campo input:focus,
+.campo select:focus {
+  outline: none;
+  border-color: #a925eb;
+}
+
+.boton-reservar {
+  grid-column: 1 / -1;
+  border: none;
+  padding: 15px;
+  background: #9925eb;
+  color: white;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.boton-reservar:hover {
+  background: #771dd8;
+}
+
+/* CONFIRMACIÓN */
+
+.confirmacion {
+  max-width: 650px;
+  margin: auto;
+  padding: 40px;
+  text-align: center;
+  background: #f0fdf4;
+  border-radius: 15px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+}
+
+.check {
+  width: 70px;
+  height: 70px;
+  margin: auto;
+  border-radius: 50%;
+  background: #22c55e;
+  color: white;
+  font-size: 45px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.confirmacion h2 {
+  color: #166534;
+}
+
+.datos-cita {
+  margin: 25px 0;
+  padding: 20px;
+  background: white;
+  border-radius: 10px;
+  text-align: left;
+}
+
+.datos-cita p {
+  margin: 10px 0;
+}
+
+/* INFORMACIÓN */
+
+.informacion {
+  padding: 70px 10%;
+  text-align: center;
+  background: #f4f7fb;
+}
+
+.informacion h2 {
+  color: #521e8a;
+  font-size: 30px;
+  margin-bottom: 40px;
+}
+
+.tarjetas {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 25px;
+}
+
+.tarjeta {
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.07);
+}
+
+.icono {
+  font-size: 45px;
+}
+
+.tarjeta h3 {
+  color: #8e2abd;
+}
+
+.tarjeta p {
+  color: #6b7280;
+  line-height: 1.5;
+}
+
+/* FOOTER */
+
+footer {
+  background: #611e8a;
+  color: white;
+  text-align: center;
+  padding: 25px;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 768px) {
+
+  .header {
+    padding: 0 5%;
+  }
+
+  nav {
+    gap: 10px;
+  }
+
+  .hero {
+    text-align: center;
+    padding: 50px 5%;
+  }
+
+  .hero h1 {
+    font-size: 36px;
+  }
+
+  .hero-icono {
+    display: none;
+  }
+
+  .formulario {
+    grid-template-columns: 1fr;
+  }
+
+  .tarjetas {
+    grid-template-columns: 1fr;
+  }
+}

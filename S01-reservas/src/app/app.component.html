@@ -1,0 +1,215 @@
+<div class="contenedor">
+
+  <header class="header">
+    <div class="logo">
+      🏥 <span>Salud<span class="resaltado">Citas</span></span>
+    </div>
+
+    <nav>
+      <a href="#">Inicio</a>
+      <a href="#reserva">Reservar cita</a>
+      <a href="#informacion">Información</a>
+    </nav>
+  </header>
+
+  <main>
+
+    <section class="hero">
+      <div class="hero-texto">
+        <h1>Reserva tu cita médica</h1>
+
+        <p>
+          Agenda tu atención médica de manera rápida,
+          sencilla y segura.
+        </p>
+
+        <a href="#reserva" class="boton-principal">
+          Reservar ahora
+        </a>
+      </div>
+
+      <div class="hero-icono">
+        🩺
+      </div>
+    </section>
+
+
+    <section id="reserva" class="reserva-section">
+
+      <div class="titulo">
+        <h2>📅 Reservar una cita</h2>
+        <p>Completa los datos para programar tu atención.</p>
+      </div>
+
+      @if (!citaRegistrada) {
+
+        <div class="formulario">
+
+          <div class="campo">
+            <label>Nombre completo</label>
+            <input
+              type="text"
+              [(ngModel)]="reserva.nombre"
+              placeholder="Ingrese su nombre completo">
+          </div>
+
+          <div class="campo">
+            <label>DNI</label>
+            <input
+              type="text"
+              [(ngModel)]="reserva.dni"
+              placeholder="Ingrese su DNI"
+              maxlength="8">
+          </div>
+
+          <div class="campo">
+            <label>Especialidad</label>
+            <select [(ngModel)]="reserva.especialidad">
+              <option value="">Seleccione una especialidad</option>
+
+              @for (especialidad of especialidades; track especialidad) {
+                <option [value]="especialidad">
+                  {{ especialidad }}
+                </option>
+              }
+            </select>
+          </div>
+
+          <div class="campo">
+            <label>Médico</label>
+            <select [(ngModel)]="reserva.medico">
+              <option value="">Seleccione un médico</option>
+
+              @for (medico of medicos; track medico) {
+                <option [value]="medico">
+                  {{ medico }}
+                </option>
+              }
+            </select>
+          </div>
+
+          <div class="campo">
+            <label>Fecha</label>
+            <input
+              type="date"
+              [(ngModel)]="reserva.fecha">
+          </div>
+
+          <div class="campo">
+            <label>Hora</label>
+            <input
+              type="time"
+              [(ngModel)]="reserva.hora">
+          </div>
+
+          <button
+            class="boton-reservar"
+            (click)="reservarCita()">
+            Confirmar reserva
+          </button>
+
+        </div>
+
+      } @else {
+
+        <div class="confirmacion">
+
+          <div class="check">
+            ✓
+          </div>
+
+          <h2>¡Cita reservada!</h2>
+
+          <p>
+            Su cita médica ha sido registrada correctamente.
+          </p>
+
+          <div class="datos-cita">
+
+            <p>
+              <strong>Paciente:</strong>
+              {{ reserva.nombre }}
+            </p>
+
+            <p>
+              <strong>DNI:</strong>
+              {{ reserva.dni }}
+            </p>
+
+            <p>
+              <strong>Especialidad:</strong>
+              {{ reserva.especialidad }}
+            </p>
+
+            <p>
+              <strong>Médico:</strong>
+              {{ reserva.medico }}
+            </p>
+
+            <p>
+              <strong>Fecha:</strong>
+              {{ reserva.fecha }}
+            </p>
+
+            <p>
+              <strong>Hora:</strong>
+              {{ reserva.hora }}
+            </p>
+
+          </div>
+
+          <button
+            class="boton-reservar"
+            (click)="nuevaReserva()">
+            Registrar otra cita
+          </button>
+
+        </div>
+
+      }
+
+    </section>
+
+
+    <section id="informacion" class="informacion">
+
+      <h2>¿Por qué reservar con nosotros?</h2>
+
+      <div class="tarjetas">
+
+        <div class="tarjeta">
+          <div class="icono">📅</div>
+          <h3>Reserva fácil</h3>
+          <p>
+            Programa tu cita de manera rápida desde cualquier dispositivo.
+          </p>
+        </div>
+
+        <div class="tarjeta">
+          <div class="icono">👨‍⚕️</div>
+          <h3>Médicos especializados</h3>
+          <p>
+            Selecciona la especialidad y el médico que necesitas.
+          </p>
+        </div>
+
+        <div class="tarjeta">
+          <div class="icono">🔒</div>
+          <h3>Seguro</h3>
+          <p>
+            Tus datos son utilizados únicamente para gestionar tu cita.
+          </p>
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <footer>
+    <p>© 2026 SaludCitas - Sistema de Reservas Médicas</p>
+  </footer>
+
+</div>
