@@ -1,0 +1,16 @@
+/* Estilos generales de la aplicación */
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: #130d1c;
+}
+
+::selection {
+  background: #9b6dff;
+  color: white;
+}

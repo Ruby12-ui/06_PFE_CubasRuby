@@ -1,0 +1,517 @@
+<!-- ================= NAVBAR ================= -->
+
+<header class="navbar">
+
+  <div class="nav-container">
+
+    <button class="logo" (click)="irA('inicio')">
+      <span>&lt;/&gt;</span>
+      Ruby
+    </button>
+
+    <button class="menu-button" (click)="abrirMenu()">
+      ☰
+    </button>
+
+    <nav class="nav-links" [class.menu-abierto]="menuOpen">
+
+      <button (click)="irA('inicio')">
+        Inicio
+      </button>
+
+      <button (click)="irA('sobre-mi')">
+        Sobre mí
+      </button>
+
+      <button (click)="irA('habilidades')">
+        Habilidades
+      </button>
+
+      <button (click)="irA('proyectos')">
+        Proyectos
+      </button>
+
+      <button class="contact-button" (click)="irA('contacto')">
+        Contacto
+      </button>
+
+    </nav>
+
+  </div>
+
+</header>
+
+
+<!-- ================= CONTENIDO ================= -->
+
+<main>
+
+
+  <!-- ================= INICIO ================= -->
+
+  <section id="inicio" class="hero">
+
+    <div class="hero-content">
+
+      <p class="etiqueta">
+        ✦ PORTAFOLIO PERSONAL
+      </p>
+
+      <h1>
+        Hola, soy
+        <span>Ruby</span>
+      </h1>
+
+      <h2>
+        Estudiante de Análisis de Sistemas
+      </h2>
+
+      <p class="descripcion">
+
+        Me apasiona la tecnología, el desarrollo web y la creación
+        de soluciones digitales. Actualmente continúo fortaleciendo
+        mis conocimientos en programación y desarrollo de aplicaciones.
+
+      </p>
+
+
+      <div class="hero-buttons">
+
+        <button
+          class="btn-primary"
+          (click)="irA('proyectos')">
+
+          Ver mis proyectos
+          →
+          
+        </button>
+
+        <button
+          class="btn-secondary"
+          (click)="irA('contacto')">
+
+          Contactarme
+
+        </button>
+
+      </div>
+
+
+      <div class="datos-rapidos">
+
+        <div>
+          📍
+          <span>Lima, Perú</span>
+        </div>
+
+        <div>
+          💻
+          <span>Desarrollo Web</span>
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="hero-imagen">
+
+      <div class="circulo">
+
+        <div class="codigo">
+
+          <div class="puntos">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+
+          <div class="foto">
+            👩‍💻
+          </div>
+
+          <p>&lt;ruby.dev /&gt;</p>
+
+          <div class="linea grande"></div>
+          <div class="linea mediana"></div>
+          <div class="linea pequena"></div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- ================= SOBRE MÍ ================= -->
+
+  <section id="sobre-mi" class="seccion">
+
+    <div class="titulo-seccion">
+
+      <span>01</span>
+
+      <div>
+        <p>SOBRE MÍ</p>
+        <h2>Conóceme</h2>
+      </div>
+
+    </div>
+
+
+    <div class="sobre-grid">
+
+      <div class="sobre-texto">
+
+        <p class="texto-grande">
+
+          Soy Ruby, estudiante de Análisis de Sistemas
+          interesada en el mundo de la programación y
+          el desarrollo de aplicaciones.
+
+        </p>
+
+        <p>
+
+          Me gusta aprender nuevas tecnologías y poner
+          en práctica mis conocimientos mediante proyectos
+          académicos y personales.
+
+        </p>
+
+        <p>
+
+          Me gusta mucho escuchar musica, jugar videojuegos y salir a caminar. 
+          También me interesa la lectura y el aprendizaje de nuevos idiomas.
+
+        </p>
+
+        <p>
+
+          Mi objetivo es seguir mejorando mis habilidades
+          y crecer profesionalmente en el área de desarrollo
+          de software.
+
+        </p>
+
+      </div>
+
+
+      <div class="tarjeta-info">
+
+        <div class="icono">
+          🎓
+        </div>
+
+        <h3>
+          Formación
+        </h3>
+
+        <p>
+          Análisis de Sistemas
+        </p>
+
+      </div>
+
+
+      <div class="tarjeta-info">
+
+        <div class="icono">
+          🚀
+        </div>
+
+        <h3>
+          Mi objetivo
+        </h3>
+
+        <p>
+          Convertirme en una profesional del desarrollo
+          de software.
+        </p>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- ================= HABILIDADES ================= -->
+
+  <section id="habilidades" class="seccion">
+
+    <div class="titulo-seccion">
+
+      <span>02</span>
+
+      <div>
+        <p>TECNOLOGÍAS</p>
+        <h2>Mis habilidades</h2>
+      </div>
+
+    </div>
+
+
+    <p class="texto-seccion">
+
+      Estas son algunas de las tecnologías que estoy
+      aprendiendo y utilizando en mis proyectos.
+
+    </p>
+
+
+    <div class="habilidades-grid">
+
+      <article
+        class="habilidad"
+        *ngFor="let habilidad of habilidades">
+
+        <div class="habilidad-top">
+
+          <div class="icono-habilidad">
+            {{ habilidad.icono }}
+          </div>
+
+          <div>
+
+            <h3>
+              {{ habilidad.nombre }}
+            </h3>
+
+            <small>
+              Tecnología
+            </small>
+
+          </div>
+
+          <strong>
+            {{ habilidad.porcentaje }}%
+          </strong>
+
+        </div>
+
+
+        <div class="barra">
+
+          <span
+            [style.width.%]="habilidad.porcentaje">
+          </span>
+
+        </div>
+
+      </article>
+
+    </div>
+
+  </section>
+
+
+  <!-- ================= PROYECTOS ================= -->
+
+  <section id="proyectos" class="seccion proyectos">
+
+    <div class="titulo-seccion">
+
+      <span>03</span>
+
+      <div>
+        <p>TRABAJOS</p>
+        <h2>Mis proyectos</h2>
+      </div>
+
+    </div>
+
+
+    <p class="texto-seccion">
+
+      Algunos de los proyectos que he realizado durante
+      mi aprendizaje y formación académica.
+
+    </p>
+
+
+    <div class="proyectos-grid">
+
+      <article
+        class="proyecto"
+        *ngFor="let proyecto of proyectos">
+
+        <span class="numero">
+          {{ proyecto.numero }}
+        </span>
+
+        <div class="icono-proyecto">
+          {{ proyecto.icono }}
+        </div>
+
+        <h3>
+          {{ proyecto.titulo }}
+        </h3>
+
+        <p>
+          {{ proyecto.descripcion }}
+        </p>
+
+
+        <div class="tecnologias">
+
+          <span
+            *ngFor="let tecnologia of proyecto.tecnologias">
+
+            {{ tecnologia }}
+
+          </span>
+
+        </div>
+
+
+        <button class="ver-proyecto">
+
+          Ver proyecto
+          <span>↗</span>
+
+        </button>
+
+      </article>
+
+    </div>
+
+  </section>
+
+
+  <!-- ================= CONTACTO ================= -->
+
+  <section id="contacto" class="seccion">
+
+    <div class="contacto">
+
+      <div class="contacto-texto">
+
+        <p>
+          CONTACTO
+        </p>
+
+        <h2>
+          ¿Hablamos?
+        </h2>
+
+        <p>
+
+          Si quieres conocer más sobre mis proyectos
+          o contactar conmigo, puedes encontrarme
+          a través de los siguientes medios.
+
+        </p>
+
+      </div>
+
+
+      <div class="contactos">
+
+
+        <a
+            href="mailto:rcubas@vallegrande.edu.pe"
+          class="contacto-item">
+
+          <span>
+            ✉️
+          </span>
+
+          <div>
+
+            <small>
+              Correo electrónico
+            </small>
+
+            <strong>
+              rcubas&#64;vallegrande.edu.pe
+            </strong>
+
+          </div>
+
+        </a>
+
+
+        <div class="contacto-item">
+
+          <span>
+            📍
+          </span>
+
+          <div>
+
+            <small>
+              Ubicación
+            </small>
+
+            <strong>
+              Lima, Perú
+            </strong>
+
+          </div>
+
+        </div>
+
+
+        <a
+          href="https://github.com/Ruby12-ui/06_PFE_CubasRuby/"
+          target="_blank"
+          class="contacto-item">
+
+          <span>
+            🐙
+          </span>
+
+          <div>
+
+            <small>
+              Red profesional
+            </small>
+
+            <strong>
+              GitHub
+            </strong>
+
+          </div>
+
+        </a>
+
+
+      </div>
+
+    </div>
+
+  </section>
+
+</main>
+
+
+<!-- ================= FOOTER ================= -->
+
+<footer class="footer">
+
+  <div>
+
+    <strong>
+      Ruby<span>.</span>
+    </strong>
+
+    <small>
+      Desarrolladora Frontend
+    </small>
+
+  </div>
+
+
+  <p>
+    © 2026 Ruby - Desarrolladora Frontend
+  </p>
+
+
+  <p>
+    Diseñado con Angular, HTML y CSS • Proyecto S02
+  </p>
+
+</footer>
