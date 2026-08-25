@@ -1,0 +1,183 @@
+<div class="formulario-contenedor">
+
+  <div class="formulario-header">
+
+    <h1>
+      {{ editando ? 'Editar película' : 'Nueva película' }}
+    </h1>
+
+    <p>
+      {{ editando
+        ? 'Modifica los datos de la película'
+        : 'Completa los datos para registrar una película'
+      }}
+    </p>
+
+  </div>
+
+  <form
+    [formGroup]="formulario"
+    (ngSubmit)="guardar()">
+
+    <div class="campo">
+
+      <label for="titulo">
+        Título
+      </label>
+
+      <input
+        id="titulo"
+        type="text"
+        formControlName="titulo"
+        placeholder="Ejemplo: Avengers: Endgame"
+      >
+
+      @if (
+        formulario.get('titulo')?.invalid &&
+        formulario.get('titulo')?.touched
+      ) {
+        <small>El título es obligatorio.</small>
+      }
+
+    </div>
+
+    <div class="campo">
+
+      <label for="genero">
+        Género
+      </label>
+
+      <select
+        id="genero"
+        formControlName="genero">
+
+        <option value="">
+          Selecciona un género
+        </option>
+
+        <option value="Acción">
+          Acción
+        </option>
+
+        <option value="Comedia">
+          Comedia
+        </option>
+
+        <option value="Drama">
+          Drama
+        </option>
+
+        <option value="Terror">
+          Terror
+        </option>
+
+        <option value="Romance">
+          Romance
+        </option>
+
+        <option value="Ciencia ficción">
+          Ciencia ficción
+        </option>
+
+      </select>
+
+    </div>
+
+    <div class="campo">
+
+      <label for="director">
+        Director
+      </label>
+
+      <input
+        id="director"
+        type="text"
+        formControlName="director"
+        placeholder="Nombre del director"
+      >
+
+    </div>
+
+    <div class="fila">
+
+      <div class="campo">
+
+        <label for="anio">
+          Año
+        </label>
+
+        <input
+          id="anio"
+          type="number"
+          formControlName="anio"
+          placeholder="2026"
+        >
+
+      </div>
+
+      <div class="campo">
+
+        <label for="duracion">
+          Duración (minutos)
+        </label>
+
+        <input
+          id="duracion"
+          type="number"
+          formControlName="duracion"
+          placeholder="120"
+        >
+
+      </div>
+
+    </div>
+
+    <div class="campo">
+
+      <label for="descripcion">
+        Descripción
+      </label>
+
+      <textarea
+        id="descripcion"
+        rows="5"
+        formControlName="descripcion"
+        placeholder="Escribe una descripción de la película">
+      </textarea>
+
+    </div>
+
+    <div class="campo">
+
+      <label for="imagen">
+        URL de imagen
+      </label>
+
+      <input
+        id="imagen"
+        type="url"
+        formControlName="imagen"
+        placeholder="https://ejemplo.com/imagen.jpg"
+      >
+
+    </div>
+
+    <div class="acciones">
+
+      <a
+        routerLink="/peliculas"
+        class="btn-cancelar">
+        Cancelar
+      </a>
+
+      <button
+        type="submit"
+        class="btn-guardar">
+        {{ editando ? 'Actualizar película' : 'Guardar película' }}
+      </button>
+
+    </div>
+
+  </form>
+
+</div>

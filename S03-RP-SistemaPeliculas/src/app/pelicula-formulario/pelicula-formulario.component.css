@@ -1,0 +1,116 @@
+.formulario-contenedor {
+  max-width: 800px;
+  margin: 0 auto;
+  background-color: white;
+  padding: 35px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+.formulario-header {
+  margin-bottom: 30px;
+}
+
+.formulario-header h1 {
+  margin: 0;
+  color: #1f2937;
+}
+
+.formulario-header p {
+  color: #6b7280;
+}
+
+.campo {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+.campo label {
+  margin-bottom: 7px;
+  font-weight: bold;
+  color: #374151;
+}
+
+.campo input,
+.campo select,
+.campo textarea {
+  padding: 11px 13px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 15px;
+  font-family: inherit;
+  outline: none;
+}
+
+.campo input:focus,
+.campo select:focus,
+.campo textarea:focus {
+  border-color: #2563eb;
+}
+
+.campo textarea {
+  resize: vertical;
+}
+
+.campo small {
+  margin-top: 5px;
+  color: #dc2626;
+}
+
+.fila {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.acciones {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 30px;
+}
+
+.btn-cancelar,
+.btn-guardar {
+  padding: 11px 18px;
+  border-radius: 6px;
+  font-weight: bold;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.btn-cancelar {
+  background-color: #e5e7eb;
+  color: #374151;
+}
+
+.btn-guardar {
+  border: none;
+  background-color: #2563eb;
+  color: white;
+}
+
+.btn-guardar:hover {
+  background-color: #1d4ed8;
+}
+
+@media (max-width: 600px) {
+  .formulario-contenedor {
+    padding: 20px;
+  }
+
+  .fila {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .acciones {
+    flex-direction: column;
+  }
+
+  .btn-cancelar,
+  .btn-guardar {
+    text-align: center;
+  }
+}

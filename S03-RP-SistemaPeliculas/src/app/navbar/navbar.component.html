@@ -1,0 +1,26 @@
+<nav class="navbar">
+  <div class="navbar-contenedor">
+
+    <a class="logo" routerLink="/peliculas">
+      🎬 Sistema de Películas
+    </a>
+
+    <div class="menu">
+
+      <a
+        routerLink="/peliculas"
+        routerLinkActive="activo"
+        [routerLinkActiveOptions]="{ exact: true }">
+        Películas
+      </a>
+
+      <a
+        routerLink="/peliculas/nueva"
+        routerLinkActive="activo">
+        Nueva película
+      </a>
+
+    </div>
+
+  </div>
+</nav>

@@ -1,0 +1,48 @@
+<div class="lista-contenedor">
+
+  <div class="encabezado">
+
+    <div>
+      <h1>Películas</h1>
+      <p>Listado de películas registradas</p>
+    </div>
+
+    <a
+      class="btn-nueva"
+      routerLink="/peliculas/nueva">
+      + Nueva película
+    </a>
+
+  </div>
+
+  @if (peliculas.length > 0) {
+
+    <div class="peliculas-grid">
+
+      @for (pelicula of peliculas; track pelicula.id) {
+
+        <app-pelicula-card
+          [pelicula]="pelicula"
+          (eliminar)="eliminarPelicula($event)">
+        </app-pelicula-card>
+
+      }
+
+    </div>
+
+  } @else {
+
+    <div class="sin-peliculas">
+      <h2>No hay películas registradas</h2>
+      <p>Agrega una nueva película para comenzar.</p>
+
+      <a
+        routerLink="/peliculas/nueva"
+        class="btn-nueva">
+        Registrar película
+      </a>
+    </div>
+
+  }
+
+</div>

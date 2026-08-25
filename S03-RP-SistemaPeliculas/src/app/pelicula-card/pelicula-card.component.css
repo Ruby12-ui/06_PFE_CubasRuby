@@ -1,0 +1,144 @@
+.pelicula-card {
+  background: white;
+  border-radius: 18px;
+  overflow: hidden;
+
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+
+  display: flex;
+  flex-direction: column;
+
+  border: 1px solid #e5e7eb;
+
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.pelicula-card:hover {
+  transform: translateY(-8px);
+
+  box-shadow:
+    0 15px 35px rgba(37, 99, 235, 0.2);
+}
+
+.pelicula-imagen {
+  width: 100%;
+  height: 310px;
+  object-fit: cover;
+
+  transition: transform 0.4s ease;
+}
+
+.pelicula-card:hover .pelicula-imagen {
+  transform: scale(1.05);
+}
+
+.pelicula-contenido {
+  padding: 22px;
+}
+
+.pelicula-contenido h2 {
+  margin: 0 0 10px;
+
+  font-size: 22px;
+  font-weight: 800;
+
+  color: #1e1b4b;
+}
+
+.genero {
+  display: inline-block;
+
+  margin: 0 0 16px;
+  padding: 6px 13px;
+
+  background: linear-gradient(
+    135deg,
+    #ddd6fe,
+    #bfdbfe
+  );
+
+  color: #4338ca;
+
+  border-radius: 20px;
+
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.informacion {
+  margin-bottom: 15px;
+}
+
+.informacion p {
+  margin: 7px 0;
+
+  color: #64748b;
+  font-size: 14px;
+}
+
+.informacion strong {
+  color: #334155;
+}
+
+.descripcion {
+  color: #64748b;
+
+  line-height: 1.6;
+  font-size: 14px;
+}
+
+.acciones {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.acciones button {
+  border: none;
+
+  padding: 10px 16px;
+
+  border-radius: 8px;
+
+  cursor: pointer;
+
+  font-weight: 700;
+
+  transition: all 0.3s ease;
+}
+
+.btn-editar {
+  background: linear-gradient(
+    135deg,
+    #2563eb,
+    #4f46e5
+  );
+
+  color: white;
+}
+
+.btn-editar:hover {
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 5px 12px rgba(37, 99, 235, 0.3);
+}
+
+.btn-eliminar {
+  background: linear-gradient(
+    135deg,
+    #ef4444,
+    #db2777
+  );
+
+  color: white;
+}
+
+.btn-eliminar:hover {
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 5px 12px rgba(239, 68, 68, 0.3);
+}
