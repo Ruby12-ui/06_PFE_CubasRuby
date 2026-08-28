@@ -1,0 +1,40 @@
+<article
+  class="pelicula-card"
+  [class.recomendada]="pelicula.calificacion >= 8">
+
+  @if (pelicula.calificacion >= 8) {
+
+    <div class="mensaje recomendada-mensaje">
+      ⭐ Muy recomendada
+    </div>
+
+  } @else {
+
+    <div class="mensaje normal-mensaje">
+      🎬 Puedes verla
+    </div>
+
+  }
+
+  <div class="contenido">
+
+    <h3>{{ pelicula.titulo }}</h3>
+
+    <p>
+      <strong>Género:</strong>
+      {{ pelicula.genero }}
+    </p>
+
+    <p>
+      <strong>Año:</strong>
+      {{ pelicula.anio }}
+    </p>
+
+    <div class="calificacion">
+      <span>⭐</span>
+      <strong>{{ pelicula.calificacion }}/10</strong>
+    </div>
+
+  </div>
+
+</article>

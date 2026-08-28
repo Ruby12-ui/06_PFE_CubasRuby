@@ -1,0 +1,24 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 5%;
+  background: #211d3a;
+  color: white;
+}
+
+.logo {
+  font-size: 21px;
+  font-weight: bold;
+}
+
+.descripcion {
+  font-size: 14px;
+}
+
+@media (max-width: 600px) {
+  .navbar {
+    flex-direction: column;
+    gap: 8px;
+  }
+}

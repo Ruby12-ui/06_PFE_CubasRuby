@@ -1,0 +1,34 @@
+<app-navbar></app-navbar>
+
+<main class="contenedor">
+
+  <section class="encabezado">
+    <h1>🎬 Catálogo de Películas</h1>
+    <p>
+      Registra y descubre películas recomendadas
+    </p>
+  </section>
+
+  <section class="formulario-seccion">
+    <app-pelicula-formulario
+      (peliculaAgregada)="agregarPelicula($event)">
+    </app-pelicula-formulario>
+  </section>
+
+  <section class="catalogo-seccion">
+
+    <div class="titulo-lista">
+      <h2>Películas registradas</h2>
+
+      <span class="contador">
+        {{ peliculas.length }} películas
+      </span>
+    </div>
+
+    <app-peliculas-lista
+      [peliculas]="peliculas">
+    </app-peliculas-lista>
+
+  </section>
+
+</main>

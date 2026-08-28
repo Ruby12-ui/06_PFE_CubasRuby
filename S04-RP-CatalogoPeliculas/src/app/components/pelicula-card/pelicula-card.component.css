@@ -1,0 +1,53 @@
+.pelicula-card {
+  background: white;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  border: 2px solid transparent;
+  transition: transform 0.2s;
+}
+
+.pelicula-card:hover {
+  transform: translateY(-3px);
+}
+
+/* Clase dinámica */
+.pelicula-card.recomendada {
+  border-color: #6c63ff;
+  box-shadow: 0 6px 20px rgba(108, 99, 255, 0.25);
+}
+
+.mensaje {
+  padding: 10px 15px;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.recomendada-mensaje {
+  background: #e9e7ff;
+  color: #5148c7;
+}
+
+.normal-mensaje {
+  background: #f2f2f2;
+  color: #666;
+}
+
+.contenido {
+  padding: 20px;
+}
+
+.contenido h3 {
+  margin-top: 0;
+  margin-bottom: 15px;
+  font-size: 22px;
+}
+
+.contenido p {
+  margin: 8px 0;
+}
+
+.calificacion {
+  margin-top: 18px;
+  font-size: 18px;
+}

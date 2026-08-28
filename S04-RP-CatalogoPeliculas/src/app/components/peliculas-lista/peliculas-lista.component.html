@@ -1,0 +1,22 @@
+@if (peliculas.length > 0) {
+
+  <div class="lista">
+
+    @for (pelicula of peliculas; track pelicula.id) {
+
+      <app-pelicula-card
+        [pelicula]="pelicula">
+      </app-pelicula-card>
+
+    }
+
+  </div>
+
+} @else {
+
+  <div class="vacio">
+    <p>No hay películas registradas todavía.</p>
+    <p>Agrega tu primera película usando el formulario.</p>
+  </div>
+
+}
