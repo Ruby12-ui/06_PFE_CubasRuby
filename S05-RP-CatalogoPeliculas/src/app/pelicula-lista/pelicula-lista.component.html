@@ -1,0 +1,73 @@
+<div class="contenedor">
+
+  <header class="encabezado">
+    <div class="icono-cine">🎬</div>
+
+```
+<div>
+  <h1>Catálogo de Películas</h1>
+  <p>Descubre grandes historias y disfruta del mejor cine 🍿</p>
+</div>
+```
+
+  </header>
+
+  <div class="peliculas">
+
+```
+@for (pelicula of peliculas; track pelicula.id) {
+
+  <div class="pelicula">
+
+    <div class="pelicula-superior">
+      <span class="genero">
+        {{ pelicula.genero }}
+      </span>
+
+      <span class="anio">
+        {{ pelicula.anio }}
+      </span>
+    </div>
+
+    <div class="icono-pelicula">
+      🎞️
+    </div>
+
+    <h2>{{ pelicula.titulo }}</h2>
+
+    <p class="director">
+      🎥 <strong>Director:</strong> {{ pelicula.director }}
+    </p>
+
+    <div class="calificacion">
+      <span>⭐</span>
+      <strong>{{ pelicula.calificacion }}</strong>
+      <small>/10</small>
+    </div>
+
+    @if (pelicula.calificacion >= 8) {
+
+      <div class="excelente">
+        ⭐ Excelente película
+      </div>
+
+    } @else {
+
+      <div class="normal">
+        👍 Buena película
+      </div>
+
+    }
+
+  </div>
+
+}
+```
+
+  </div>
+
+  <footer>
+    🎬 Catálogo de Películas · Hecho con Angular ❤️
+  </footer>
+
+</div>
