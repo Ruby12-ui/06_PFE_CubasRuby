@@ -1,0 +1,53 @@
+.contenedor-libros {
+width: 90%;
+max-width: 1100px;
+margin: 30px auto;
+font-family: Arial, sans-serif;
+}
+
+.contenedor-libros h2 {
+text-align: center;
+margin-bottom: 30px;
+font-size: 32px;
+}
+
+.lista-libros {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+gap: 20px;
+}
+
+.tarjeta-libro {
+background-color: #ffffff;
+border-radius: 12px;
+padding: 20px;
+box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+transition: transform 0.2s ease;
+}
+
+.tarjeta-libro:hover {
+transform: translateY(-5px);
+}
+
+.tarjeta-libro h3 {
+margin-top: 0;
+font-size: 22px;
+}
+
+.tarjeta-libro p {
+margin: 10px 0;
+font-size: 15px;
+}
+
+.tarjeta-libro button {
+margin-top: 10px;
+padding: 10px 18px;
+border: none;
+border-radius: 8px;
+cursor: pointer;
+font-size: 14px;
+}
+
+.tarjeta-libro button:hover {
+opacity: 0.8;
+}

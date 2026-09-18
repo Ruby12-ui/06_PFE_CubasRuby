@@ -1,0 +1,25 @@
+<div class="contenedor-libros">
+
+  <h2>Biblioteca Digital</h2>
+
+  <div class="lista-libros">
+
+```
+<div class="tarjeta-libro" *ngFor="let libro of libros">
+
+  <h3>{{ libro.titulo }}</h3>
+
+  <p><strong>Autor:</strong> {{ libro.autor }}</p>
+
+  <p><strong>Año:</strong> {{ libro.anio }}</p>
+
+  <p><strong>Género:</strong> {{ libro.genero }}</p>
+
+  <button type="button">Ver libro</button>
+
+</div>
+```
+
+  </div>
+
+</div>

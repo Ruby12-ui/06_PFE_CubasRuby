@@ -1,0 +1,32 @@
+{
+  "libros": [
+    {
+      "id": "2",
+      "titulo": "El principito",
+      "autor": "Antoine de Saint-Exupéry",
+      "categoria": "Literatura",
+      "anio": 1943,
+      "disponible": true,
+      "descripcion": "Una historia sobre la amistad, el amor y la vida."
+    },
+    {
+      "id": "3",
+      "titulo": "Don Quijote de la Mancha",
+      "autor": "Miguel de Cervantes",
+      "categoria": "Clásico",
+      "anio": 1605,
+      "disponible": false,
+      "descripcion": "Una de las obras fundamentales de la literatura española."
+    },
+    {
+      "titulo": "Anal lopes ",
+      "autor": "ruby ",
+      "categoria": "Trajedia",
+      "anio": 2026,
+      "disponible": true,
+      "descripcion": "llorar",
+      "id": "g7dj6SCt0mo"
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
+}

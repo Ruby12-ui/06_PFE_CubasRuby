@@ -1,0 +1,648 @@
+<div class="sistema">
+
+  <!-- MENÚ LATERAL -->
+
+  <aside class="sidebar">
+
+    <div class="logo">
+
+      <div class="logo-icon">
+        📚
+      </div>
+
+      <div>
+        <h1>Biblioteca</h1>
+        <span>Digital</span>
+      </div>
+
+    </div>
+
+
+    <nav>
+
+      <button
+        [class.activo]="vistaActual === 'dashboard'"
+        (click)="cambiarVista('dashboard')"
+      >
+        <span>🏠</span>
+        Dashboard
+      </button>
+
+
+      <button
+        [class.activo]="vistaActual === 'libros'"
+        (click)="cambiarVista('libros')"
+      >
+        <span>📖</span>
+        Libros
+      </button>
+
+
+      <button
+        [class.activo]="vistaActual === 'usuarios'"
+        (click)="cambiarVista('usuarios')"
+      >
+        <span>👥</span>
+        Usuarios
+      </button>
+
+
+      <button
+        [class.activo]="vistaActual === 'prestamos'"
+        (click)="cambiarVista('prestamos')"
+      >
+        <span>🔄</span>
+        Préstamos
+      </button>
+
+    </nav>
+
+
+    <div class="sidebar-footer">
+
+      <div class="usuario">
+
+        <div class="avatar">
+          U
+        </div>
+
+        <div>
+          <strong>Administrador</strong>
+          <small>Bibliotecario</small>
+        </div>
+
+      </div>
+
+    </div>
+
+  </aside>
+
+
+  <!-- CONTENIDO -->
+
+  <main class="contenido">
+
+    <header class="topbar">
+
+      <div>
+
+        @if (vistaActual === 'dashboard') {
+          <h2>Dashboard</h2>
+          <p>Resumen de la biblioteca</p>
+        }
+
+        @if (vistaActual === 'libros') {
+          <h2>Libros</h2>
+          <p>Gestiona los libros de la biblioteca</p>
+        }
+
+        @if (vistaActual === 'usuarios') {
+          <h2>Usuarios</h2>
+          <p>Gestiona los usuarios</p>
+        }
+
+        @if (vistaActual === 'prestamos') {
+          <h2>Préstamos</h2>
+          <p>Gestiona los préstamos</p>
+        }
+
+      </div>
+
+    </header>
+
+
+    <div class="pagina">
+
+
+      <!-- ================= DASHBOARD ================= -->
+
+      @if (vistaActual === 'dashboard') {
+
+        <section class="bienvenida">
+
+          <div>
+
+            <h1>¡Bienvenido a la Biblioteca Digital! 👋</h1>
+
+            <p>
+              Administra tus libros de forma rápida y sencilla.
+            </p>
+
+          </div>
+
+          <div class="libro-grande">
+            📚
+          </div>
+
+        </section>
+
+
+        <section class="estadisticas">
+
+
+          <div class="tarjeta">
+
+            <div class="icono azul">
+              📚
+            </div>
+
+            <div>
+
+              <span>Total de libros</span>
+
+              <strong>
+                {{ totalLibros }}
+              </strong>
+
+            </div>
+
+          </div>
+
+
+          <div class="tarjeta">
+
+            <div class="icono verde">
+              ✅
+            </div>
+
+            <div>
+
+              <span>Disponibles</span>
+
+              <strong>
+                {{ librosDisponibles }}
+              </strong>
+
+            </div>
+
+          </div>
+
+
+          <div class="tarjeta">
+
+            <div class="icono rojo">
+              📕
+            </div>
+
+            <div>
+
+              <span>No disponibles</span>
+
+              <strong>
+                {{ librosNoDisponibles }}
+              </strong>
+
+            </div>
+
+          </div>
+
+
+          <div class="tarjeta">
+
+            <div class="icono morado">
+              🏷️
+            </div>
+
+            <div>
+
+              <span>Categorías</span>
+
+              <strong>
+                {{ totalCategorias }}
+              </strong>
+
+            </div>
+
+          </div>
+
+
+        </section>
+
+
+        <section class="panel">
+
+          <div class="panel-header">
+
+            <div>
+
+              <h2>Libros recientes</h2>
+
+              <p>
+                Últimos libros registrados
+              </p>
+
+            </div>
+
+            <button
+              class="btn-ver"
+              (click)="cambiarVista('libros')"
+            >
+              Ver todos
+            </button>
+
+          </div>
+
+
+          <div class="tabla-container">
+
+            <table>
+
+              <thead>
+
+                <tr>
+
+                  <th>Título</th>
+                  <th>Autor</th>
+                  <th>Categoría</th>
+                  <th>Año</th>
+                  <th>Estado</th>
+
+                </tr>
+
+              </thead>
+
+
+              <tbody>
+
+                @for (
+                  libro of libros.slice(0, 5);
+                  track libro.id
+                ) {
+
+                  <tr>
+
+                    <td>
+                      <strong>
+                        {{ libro.titulo }}
+                      </strong>
+                    </td>
+
+                    <td>
+                      {{ libro.autor }}
+                    </td>
+
+                    <td>
+                      <span class="categoria">
+                        {{ libro.categoria }}
+                      </span>
+                    </td>
+
+                    <td>
+                      {{ libro.anio }}
+                    </td>
+
+                    <td>
+
+                      @if (libro.disponible) {
+
+                        <span class="disponible">
+                          Disponible
+                        </span>
+
+                      } @else {
+
+                        <span class="no-disponible">
+                          No disponible
+                        </span>
+
+                      }
+
+                    </td>
+
+                  </tr>
+
+                }
+
+              </tbody>
+
+            </table>
+
+          </div>
+
+        </section>
+
+      }
+
+
+      <!-- ================= LIBROS ================= -->
+
+      @if (vistaActual === 'libros') {
+
+        <section class="panel">
+
+
+          <div class="panel-header">
+
+            <div>
+
+              <h2>📖 Gestión de libros</h2>
+
+              <p>
+                Registra y administra los libros.
+              </p>
+
+            </div>
+
+
+            <button
+              class="btn-primary"
+              (click)="nuevo()"
+            >
+              + Nuevo libro
+            </button>
+
+          </div>
+
+
+          @if (mensaje) {
+
+            <div class="mensaje">
+              {{ mensaje }}
+            </div>
+
+          }
+
+
+          <div class="busqueda">
+
+            <input
+              type="text"
+              [(ngModel)]="busqueda"
+              (input)="buscar()"
+              placeholder="🔎 Buscar por título, autor o categoría..."
+            />
+
+          </div>
+
+
+          @if (mostrarFormulario) {
+
+            <div class="formulario">
+
+              <h3>
+                {{ modoEdicion
+                  ? '✏️ Editar libro'
+                  : '➕ Registrar nuevo libro'
+                }}
+              </h3>
+
+
+              <div class="form-grid">
+
+
+                <div class="campo">
+
+                  <label>Título *</label>
+
+                  <input
+                    type="text"
+                    [(ngModel)]="libroSeleccionado.titulo"
+                  />
+
+                </div>
+
+
+                <div class="campo">
+
+                  <label>Autor *</label>
+
+                  <input
+                    type="text"
+                    [(ngModel)]="libroSeleccionado.autor"
+                  />
+
+                </div>
+
+
+                <div class="campo">
+
+                  <label>Categoría *</label>
+
+                  <input
+                    type="text"
+                    [(ngModel)]="libroSeleccionado.categoria"
+                  />
+
+                </div>
+
+
+                <div class="campo">
+
+                  <label>Año</label>
+
+                  <input
+                    type="number"
+                    [(ngModel)]="libroSeleccionado.anio"
+                  />
+
+                </div>
+
+
+                <div class="campo">
+
+                  <label>Descripción</label>
+
+                  <textarea
+                    rows="3"
+                    [(ngModel)]="libroSeleccionado.descripcion"
+                  ></textarea>
+
+                </div>
+
+
+                <div class="campo check">
+
+                  <label>
+
+                    <input
+                      type="checkbox"
+                      [(ngModel)]="libroSeleccionado.disponible"
+                    />
+
+                    Libro disponible
+
+                  </label>
+
+                </div>
+
+
+              </div>
+
+
+              <div class="acciones">
+
+                <button
+                  class="btn-primary"
+                  (click)="guardar()"
+                >
+                  💾 Guardar
+                </button>
+
+                <button
+                  class="btn-secondary"
+                  (click)="cancelar()"
+                >
+                  Cancelar
+                </button>
+
+              </div>
+
+            </div>
+
+          }
+
+
+          <div class="tabla-container">
+
+            <table>
+
+              <thead>
+
+                <tr>
+
+                  <th>ID</th>
+                  <th>Título</th>
+                  <th>Autor</th>
+                  <th>Categoría</th>
+                  <th>Año</th>
+                  <th>Estado</th>
+                  <th>Acciones</th>
+
+                </tr>
+
+              </thead>
+
+
+              <tbody>
+
+                @for (
+                  libro of librosFiltrados;
+                  track libro.id
+                ) {
+
+                  <tr>
+
+                    <td>
+                      {{ libro.id }}
+                    </td>
+
+                    <td>
+                      <strong>
+                        {{ libro.titulo }}
+                      </strong>
+                    </td>
+
+                    <td>
+                      {{ libro.autor }}
+                    </td>
+
+                    <td>
+                      <span class="categoria">
+                        {{ libro.categoria }}
+                      </span>
+                    </td>
+
+                    <td>
+                      {{ libro.anio }}
+                    </td>
+
+                    <td>
+
+                      @if (libro.disponible) {
+
+                        <span class="disponible">
+                          Disponible
+                        </span>
+
+                      } @else {
+
+                        <span class="no-disponible">
+                          No disponible
+                        </span>
+
+                      }
+
+                    </td>
+
+                    <td>
+
+                      <button
+                        class="btn-edit"
+                        (click)="editar(libro)"
+                      >
+                        ✏️
+                      </button>
+
+                      <button
+                        class="btn-delete"
+                        (click)="eliminar(libro)"
+                      >
+                        🗑️
+                      </button>
+
+                    </td>
+
+                  </tr>
+
+                }
+
+              </tbody>
+
+            </table>
+
+          </div>
+
+        </section>
+
+      }
+
+
+      <!-- ================= USUARIOS ================= -->
+
+      @if (vistaActual === 'usuarios') {
+
+        <section class="panel vacio">
+
+          <div class="vacio-icon">
+            👥
+          </div>
+
+          <h2>Módulo de Usuarios</h2>
+
+          <p>
+            Aquí construiremos el registro y administración
+            de usuarios.
+          </p>
+
+        </section>
+
+      }
+
+
+      <!-- ================= PRESTAMOS ================= -->
+
+      @if (vistaActual === 'prestamos') {
+
+        <section class="panel vacio">
+
+          <div class="vacio-icon">
+            🔄
+          </div>
+
+          <h2>Módulo de Préstamos</h2>
+
+          <p>
+            Aquí construiremos el sistema de préstamos
+            y devoluciones.
+          </p>
+
+        </section>
+
+      }
+
+
+    </div>
+
+  </main>
+
+</div>
