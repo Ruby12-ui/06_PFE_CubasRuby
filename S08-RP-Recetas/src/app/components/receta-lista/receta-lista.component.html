@@ -1,0 +1,335 @@
+<nav class="navbar">
+
+  <div class="logo">
+    🍴 RECETARIO
+  </div>
+
+
+  <div class="categorias">
+
+    <button
+      [class.activo]="categoriaSeleccionada === 'Todas'"
+      (click)="filtrarPorCategoria('Todas')"
+    >
+      Todas
+    </button>
+
+
+    <button
+      [class.activo]="categoriaSeleccionada === 'Entrantes'"
+      (click)="filtrarPorCategoria('Entrantes')"
+    >
+      🥗 Entrantes
+    </button>
+
+
+    <button
+      [class.activo]="categoriaSeleccionada === 'Platos principales'"
+      (click)="filtrarPorCategoria('Platos principales')"
+    >
+      🍽️ Platos principales
+    </button>
+
+
+    <button
+      [class.activo]="categoriaSeleccionada === 'Guarniciones'"
+      (click)="filtrarPorCategoria('Guarniciones')"
+    >
+      🥔 Guarniciones
+    </button>
+
+
+    <button
+      [class.activo]="categoriaSeleccionada === 'Postres'"
+      (click)="filtrarPorCategoria('Postres')"
+    >
+      🍰 Postres
+    </button>
+
+
+    <button
+      [class.activo]="categoriaSeleccionada === 'Bebidas'"
+      (click)="filtrarPorCategoria('Bebidas')"
+    >
+      🥤 Bebidas
+    </button>
+
+  </div>
+
+</nav>
+
+
+<main>
+
+
+  <!-- ENCABEZADO -->
+
+  <div class="encabezado">
+
+    <div>
+
+      <h1>
+
+        {{
+          categoriaSeleccionada === 'Todas'
+            ? 'Lista de Recetas'
+            : categoriaSeleccionada
+        }}
+
+      </h1>
+
+
+      <p class="contador">
+
+        {{ recetasFiltradas.length }}
+        recetas
+
+      </p>
+
+    </div>
+
+
+    <button
+      class="btn-nueva"
+      (click)="abrirFormulario()"
+    >
+
+      ➕ Registrar receta
+
+    </button>
+
+  </div>
+
+
+  <!-- FORMULARIO -->
+
+  @if (mostrarFormulario) {
+
+    <app-receta-formulario
+
+      [recetaEditar]="recetaEditando"
+
+      (recetaCreada)="agregarReceta($event)"
+
+      (recetaActualizada)="actualizarReceta($event)"
+
+    >
+    </app-receta-formulario>
+
+
+    <div class="cerrar-formulario">
+
+      <button
+        class="btn-cancelar"
+        (click)="cerrarFormulario()"
+      >
+
+        ❌ Cancelar
+
+      </button>
+
+    </div>
+
+  }
+
+
+  <!-- LISTA DE RECETAS -->
+
+  <div class="contenedor-recetas">
+
+    @for (
+      receta of recetasFiltradas;
+      track receta.id
+    ) {
+
+      <div class="tarjeta-receta">
+
+
+        <!-- IMAGEN -->
+
+        <img
+          [src]="receta.image"
+          [alt]="receta.name"
+        >
+
+
+        <div class="contenido">
+
+
+          <!-- CATEGORÍA -->
+
+          <span class="categoria">
+
+            {{ receta.categoria }}
+
+          </span>
+
+
+          <!-- NOMBRE -->
+
+          <h2>
+
+            {{ receta.name }}
+
+          </h2>
+
+
+          <!-- COCINA -->
+
+          <p>
+
+            <strong>
+              🌎 Cocina:
+            </strong>
+
+            {{ receta.cuisine }}
+
+          </p>
+
+
+          <!-- DIFICULTAD -->
+
+          <p>
+
+            <strong>
+              ⭐ Dificultad:
+            </strong>
+
+            {{ receta.difficulty }}
+
+          </p>
+
+
+          <!-- PREPARACIÓN -->
+
+          <p>
+
+            <strong>
+              ⏱️ Preparación:
+            </strong>
+
+            {{ receta.prepTimeMinutes }}
+            minutos
+
+          </p>
+
+
+          <!-- COCCIÓN -->
+
+          <p>
+
+            <strong>
+              🔥 Cocción:
+            </strong>
+
+            {{ receta.cookTimeMinutes }}
+            minutos
+
+          </p>
+
+
+          <!-- INGREDIENTES -->
+
+          <h3>
+            Ingredientes
+          </h3>
+
+
+          <ul>
+
+            @for (
+              ingrediente of receta.ingredients;
+              track ingrediente
+            ) {
+
+              <li>
+
+                {{ ingrediente }}
+
+              </li>
+
+            }
+
+          </ul>
+
+
+          <!-- INSTRUCCIONES -->
+
+          <h3>
+            Instrucciones
+          </h3>
+
+
+          <ol>
+
+            @for (
+              instruccion of receta.instructions;
+              track instruccion
+            ) {
+
+              <li>
+
+                {{ instruccion }}
+
+              </li>
+
+            }
+
+          </ol>
+
+
+          <!-- BOTONES -->
+
+          <div class="acciones-receta">
+
+
+            <button
+              class="btn-editar"
+              (click)="editarReceta(receta)"
+            >
+
+              ✏️ Editar
+
+            </button>
+
+
+            <button
+              class="btn-eliminar"
+              (click)="eliminarReceta(receta)"
+            >
+
+              🗑️ Eliminar
+
+            </button>
+
+
+          </div>
+
+        </div>
+
+      </div>
+
+    }
+
+  </div>
+
+
+  <!-- MENSAJE SI NO HAY RECETAS -->
+
+  @if (recetasFiltradas.length === 0) {
+
+    <div class="sin-recetas">
+
+      <h2>
+        😕 No hay recetas
+      </h2>
+
+      <p>
+        No se encontraron recetas para esta categoría.
+      </p>
+
+    </div>
+
+  }
+
+</main>

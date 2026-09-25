@@ -1,0 +1,40 @@
+.acciones {
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+  background: #f8f5fa;
+}
+
+.btn-nueva {
+  background: #6a1b9a;
+  color: white;
+  border: none;
+  padding: 13px 25px;
+  border-radius: 25px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.btn-nueva:hover {
+  background: #4a148c;
+}
+
+.cerrar-formulario {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 25px;
+}
+
+.btn-cancelar {
+  background: #777;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.btn-cancelar:hover {
+  background: #555;
+}

@@ -1,0 +1,25 @@
+<app-receta-lista></app-receta-lista>
+
+<div class="acciones">
+
+  <button
+    class="btn-nueva"
+    (click)="abrirFormulario()">
+    ➕ Registrar receta
+  </button>
+
+</div>
+
+@if (mostrarFormulario) {
+
+  <app-receta-formulario></app-receta-formulario>
+
+  <div class="cerrar-formulario">
+    <button
+      class="btn-cancelar"
+      (click)="cerrarFormulario()">
+      ❌ Cancelar
+    </button>
+  </div>
+
+}

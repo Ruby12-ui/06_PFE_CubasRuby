@@ -1,0 +1,234 @@
+<div class="formulario">
+
+  <h2>
+
+    {{
+      recetaEditar
+        ? '✏️ Editar receta'
+        : '🍴 Registrar nueva receta'
+    }}
+
+  </h2>
+
+
+  <form
+    (ngSubmit)="guardarReceta()"
+  >
+
+
+    <!-- NOMBRE -->
+
+    <div class="campo">
+
+      <label>
+        Nombre de la receta
+      </label>
+
+      <input
+        type="text"
+        name="name"
+        [(ngModel)]="receta.name"
+        placeholder="Ejemplo: Pancakes de plátano"
+        required
+      >
+
+    </div>
+
+
+    <!-- CATEGORÍA -->
+
+    <div class="campo">
+
+      <label>
+        Categoría
+      </label>
+
+      <select
+        name="categoria"
+        [(ngModel)]="receta.categoria"
+      >
+
+        <option value="Entrantes">
+          🥗 Entrantes
+        </option>
+
+        <option value="Platos principales">
+          🍽️ Platos principales
+        </option>
+
+        <option value="Guarniciones">
+          🥔 Guarniciones
+        </option>
+
+        <option value="Postres">
+          🍰 Postres
+        </option>
+
+        <option value="Bebidas">
+          🥤 Bebidas
+        </option>
+
+      </select>
+
+    </div>
+
+
+    <!-- INGREDIENTES -->
+
+    <div class="campo">
+
+      <label>
+        Ingredientes
+      </label>
+
+      <input
+        type="text"
+        name="ingredientes"
+        [(ngModel)]="ingredientesTexto"
+        placeholder="Plátano, Harina, Huevo, Leche"
+        required
+      >
+
+    </div>
+
+
+    <!-- INSTRUCCIONES -->
+
+    <div class="campo">
+
+      <label>
+        Instrucciones
+      </label>
+
+      <textarea
+        name="instrucciones"
+        [(ngModel)]="instruccionesTexto"
+        placeholder="Triturar el plátano, Mezclar, Cocinar"
+        required
+      ></textarea>
+
+    </div>
+
+
+    <!-- TIEMPOS -->
+
+    <div class="fila">
+
+      <div class="campo">
+
+        <label>
+          Tiempo de preparación
+        </label>
+
+        <input
+          type="number"
+          name="prepTimeMinutes"
+          [(ngModel)]="receta.prepTimeMinutes"
+          min="0"
+        >
+
+      </div>
+
+
+      <div class="campo">
+
+        <label>
+          Tiempo de cocción
+        </label>
+
+        <input
+          type="number"
+          name="cookTimeMinutes"
+          [(ngModel)]="receta.cookTimeMinutes"
+          min="0"
+        >
+
+      </div>
+
+    </div>
+
+
+    <!-- DIFICULTAD -->
+
+    <div class="campo">
+
+      <label>
+        Dificultad
+      </label>
+
+      <select
+        name="difficulty"
+        [(ngModel)]="receta.difficulty"
+      >
+
+        <option value="Fácil">
+          Fácil
+        </option>
+
+        <option value="Media">
+          Media
+        </option>
+
+        <option value="Difícil">
+          Difícil
+        </option>
+
+      </select>
+
+    </div>
+
+
+    <!-- COCINA -->
+
+    <div class="campo">
+
+      <label>
+        Cocina
+      </label>
+
+      <input
+        type="text"
+        name="cuisine"
+        [(ngModel)]="receta.cuisine"
+        placeholder="Ejemplo: Peruana"
+      >
+
+    </div>
+
+
+    <!-- IMAGEN -->
+
+    <div class="campo">
+
+      <label>
+        URL de imagen
+      </label>
+
+      <input
+        type="text"
+        name="image"
+        [(ngModel)]="receta.image"
+        placeholder="https://..."
+      >
+
+    </div>
+
+
+    <!-- BOTÓN -->
+
+    <button
+      type="submit"
+      class="btn-guardar"
+    >
+
+      {{
+        recetaEditar
+          ? '💾 Actualizar receta'
+          : '💾 Registrar receta'
+      }}
+
+    </button>
+
+  </form>
+
+</div>
