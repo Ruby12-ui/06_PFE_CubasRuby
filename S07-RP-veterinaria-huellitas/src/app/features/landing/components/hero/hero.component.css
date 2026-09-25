@@ -1,0 +1,106 @@
+.hero {
+  min-height: 600px;
+  padding: 70px 8%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 50px;
+  background: linear-gradient(135deg, #e9f8f4, #ffffff);
+  box-sizing: border-box;
+}
+
+.hero-content {
+  max-width: 600px;
+}
+
+.badge {
+  display: inline-block;
+  padding: 10px 18px;
+  border-radius: 30px;
+  background: white;
+  color: #2e9d8f;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.hero h1 {
+  font-size: 55px;
+  line-height: 1.1;
+  margin: 0 0 20px;
+  color: #183b3a;
+}
+
+.hero h1 span {
+  display: block;
+  color: #2e9d8f;
+}
+
+.hero p {
+  font-size: 19px;
+  line-height: 1.7;
+  color: #555;
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 15px;
+  margin-top: 30px;
+}
+
+.btn-primary,
+.btn-secondary {
+  text-decoration: none;
+  padding: 14px 25px;
+  border-radius: 30px;
+  font-weight: bold;
+}
+
+.btn-primary {
+  background: #2e9d8f;
+  color: white;
+}
+
+.btn-secondary {
+  border: 2px solid #2e9d8f;
+  color: #2e9d8f;
+}
+
+.hero-image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.pet-card {
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  background: #bde8df;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 150px;
+}
+
+@media (max-width: 768px) {
+
+  .hero {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .hero h1 {
+    font-size: 40px;
+  }
+
+  .hero-buttons {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .pet-card {
+    width: 220px;
+    height: 220px;
+    font-size: 110px;
+  }
+}

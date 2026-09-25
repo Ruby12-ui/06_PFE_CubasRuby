@@ -1,0 +1,245 @@
+<section id="contacto" class="contacto">
+
+  <div class="contacto-contenedor">
+
+    <div class="contacto-info">
+
+      <span class="etiqueta">🐾 VETERINARIA HUELLITAS</span>
+
+      <h2>
+        Estamos aquí para cuidar
+        <span>a tu mejor amigo</span>
+      </h2>
+
+      <p>
+        Agenda una cita con nuestros especialistas y recibe
+        la mejor atención para tu mascota.
+      </p>
+
+      <div class="datos-contacto">
+
+        <div class="dato">
+          <div class="icono">📞</div>
+          <div>
+            <strong>Teléfono</strong>
+            <p>999 999 999</p>
+          </div>
+        </div>
+
+        <div class="dato">
+          <div class="icono">📧</div>
+          <div>
+            <strong>Correo</strong>
+            <p>contacto&#64;huellitas.com</p>
+          </div>
+        </div>
+
+        <div class="dato">
+          <div class="icono">📍</div>
+          <div>
+            <strong>Dirección</strong>
+            <p>Av. Principal 123, Lima</p>
+          </div>
+        </div>
+
+        <div class="dato">
+          <div class="icono">🕐</div>
+          <div>
+            <strong>Horario</strong>
+            <p>Lun - Sáb: 8:00 AM - 8:00 PM</p>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="cita-card">
+
+      <div class="huella">🐾</div>
+
+      <h3>¿Tu mascota necesita atención?</h3>
+
+      <p>
+        No esperes más. Reserva una cita con nuestros
+        veterinarios.
+      </p>
+
+      <button
+        type="button"
+        class="btn-agendar"
+        (click)="abrirFormulario()">
+
+        📅 Agendar cita
+
+      </button>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+@if (mostrarModal) {
+
+  <div class="modal-fondo">
+
+    <div class="modal">
+
+      <button
+        type="button"
+        class="cerrar"
+        (click)="cerrarFormulario()">
+
+        ✕
+
+      </button>
+
+      <div class="modal-icono">🐾</div>
+
+      <h2>Agendar cita</h2>
+
+      <p class="subtitulo">
+        Completa los datos de tu mascota
+      </p>
+
+
+      <form (ngSubmit)="enviarFormulario()">
+
+        <div class="campo">
+
+          <label>Nombre del dueño</label>
+
+          <input
+            type="text"
+            name="nombre"
+            [(ngModel)]="cita.nombre"
+            placeholder="Ej. Ruby Cubas"
+            required>
+
+        </div>
+
+
+        <div class="campo">
+
+          <label>Nombre de la mascota</label>
+
+          <input
+            type="text"
+            name="mascota"
+            [(ngModel)]="cita.mascota"
+            placeholder="Ej. Max"
+            required>
+
+        </div>
+
+
+        <div class="campo">
+
+          <label>Teléfono</label>
+
+          <input
+            type="tel"
+            name="telefono"
+            [(ngModel)]="cita.telefono"
+            placeholder="999 999 999"
+            required>
+
+        </div>
+
+
+        <div class="campo">
+
+          <label>Servicio</label>
+
+          <select
+            name="servicio"
+            [(ngModel)]="cita.servicio"
+            required>
+
+            <option value="">
+              Selecciona un servicio
+            </option>
+
+            <option value="Consulta veterinaria">
+              Consulta veterinaria
+            </option>
+
+            <option value="Vacunación">
+              Vacunación
+            </option>
+
+            <option value="Desparasitación">
+              Desparasitación
+            </option>
+
+            <option value="Baño y peluquería">
+              Baño y peluquería
+            </option>
+
+          </select>
+
+        </div>
+
+
+        <div class="fila">
+
+          <div class="campo">
+
+            <label>Fecha</label>
+
+            <input
+              type="date"
+              name="fecha"
+              [(ngModel)]="cita.fecha"
+              required>
+
+          </div>
+
+
+          <div class="campo">
+
+            <label>Hora</label>
+
+            <input
+              type="time"
+              name="hora"
+              [(ngModel)]="cita.hora"
+              required>
+
+          </div>
+
+        </div>
+
+
+        <div class="campo">
+
+          <label>Motivo de la consulta</label>
+
+          <textarea
+            name="motivo"
+            [(ngModel)]="cita.motivo"
+            placeholder="Cuéntanos qué necesita tu mascota..."
+            rows="4">
+          </textarea>
+
+        </div>
+
+
+        <button
+          type="submit"
+          class="btn-confirmar">
+
+          🐾 Confirmar cita
+
+        </button>
+
+      </form>
+
+    </div>
+
+  </div>
+
+}
