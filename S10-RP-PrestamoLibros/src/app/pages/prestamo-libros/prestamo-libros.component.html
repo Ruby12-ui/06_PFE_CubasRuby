@@ -1,0 +1,310 @@
+
+<div class="pagina">
+
+  <header class="hero">
+    <div class="hero-icon">📚</div>
+    <div class="hero-texto">
+      <span class="etiqueta">BIBLIOTECA DIGITAL</span>
+      <h1>Sistema de Préstamo de Libros</h1>
+      <p>Administra, organiza y controla tus préstamos de manera sencilla.</p>
+    </div>
+  </header>
+
+  <section class="resumen">
+    <article class="tarjeta-resumen">
+      <div class="icono-resumen morado">📖</div>
+      <div>
+        <p>Préstamos registrados</p>
+        <h2>{{ prestamos.length }}</h2>
+      </div>
+    </article>
+
+    <article class="tarjeta-resumen">
+      <div class="icono-resumen rosa">✨</div>
+      <div>
+        <p>Estado del sistema</p>
+        <h2>Activo</h2>
+      </div>
+    </article>
+  </section>
+
+  <section class="panel formulario-panel">
+
+    <div class="titulo-panel">
+      <div class="icono-titulo">
+        {{ indiceEdicion !== null ? '✏️' : '📝' }}
+      </div>
+      <div>
+        <h2>
+          {{ indiceEdicion !== null
+            ? 'Editar préstamo'
+            : 'Registrar nuevo préstamo' }}
+        </h2>
+        <p>
+          Completa los datos solicitados para gestionar el préstamo.
+        </p>
+      </div>
+    </div>
+
+    <form
+      [formGroup]="formulario"
+      (ngSubmit)="guardarPrestamo()"
+      novalidate
+    >
+      <div class="campos">
+
+        <div class="campo">
+          <label for="titulo">📘 Título del libro</label>
+          <input
+            id="titulo"
+            type="text"
+            formControlName="titulo"
+            placeholder="Ej. Cien años de soledad"
+            maxlength="150"
+            autocomplete="off"
+          />
+
+          <small
+            class="error"
+            *ngIf="formulario.get('titulo')?.touched &&
+                   formulario.get('titulo')?.hasError('required')"
+          >
+            El título del libro es obligatorio.
+          </small>
+
+          <small
+            class="error"
+            *ngIf="formulario.get('titulo')?.touched &&
+                   formulario.get('titulo')?.hasError('tituloInvalido')"
+          >
+            No se permiten números ni caracteres no válidos.
+          </small>
+
+          <small
+            class="error"
+            *ngIf="formulario.get('titulo')?.touched &&
+                   formulario.get('titulo')?.hasError('maxlength')"
+          >
+            Máximo 150 caracteres.
+          </small>
+        </div>
+
+        <div class="campo">
+          <label for="usuario">👤 Nombre del usuario</label>
+          <input
+            id="usuario"
+            type="text"
+            formControlName="usuario"
+            placeholder="Ej. María Pérez"
+            maxlength="100"
+            autocomplete="off"
+          />
+
+          <small
+            class="error"
+            *ngIf="formulario.get('usuario')?.touched &&
+                   formulario.get('usuario')?.hasError('required')"
+          >
+            El nombre del usuario es obligatorio.
+          </small>
+
+          <small
+            class="error"
+            *ngIf="formulario.get('usuario')?.touched &&
+                   formulario.get('usuario')?.hasError('usuarioInvalido')"
+          >
+            El nombre solo puede contener letras y espacios.
+          </small>
+
+          <small
+            class="error"
+            *ngIf="formulario.get('usuario')?.touched &&
+                   formulario.get('usuario')?.hasError('maxlength')"
+          >
+            Máximo 100 caracteres.
+          </small>
+        </div>
+
+        <div class="campo">
+          <label for="isbn">🔖 Código ISBN</label>
+          <input
+            id="isbn"
+            type="text"
+            formControlName="isbn"
+            placeholder="Ej. 9780307474728"
+            inputmode="numeric"
+            autocomplete="off"
+          />
+
+          <small
+            class="error"
+            *ngIf="formulario.get('isbn')?.touched &&
+                   formulario.get('isbn')?.hasError('required')"
+          >
+            El ISBN es obligatorio.
+          </small>
+
+          <small
+            class="error"
+            *ngIf="formulario.get('isbn')?.touched &&
+                   formulario.get('isbn')?.hasError('isbnCaracteres')"
+          >
+            El ISBN solo admite números y guiones.
+          </small>
+
+          <small
+            class="error"
+            *ngIf="formulario.get('isbn')?.touched &&
+                   formulario.get('isbn')?.hasError('isbnLongitud')"
+          >
+            El ISBN debe tener 10 o 13 dígitos.
+          </small>
+        </div>
+
+        <div class="campo">
+          <label for="dias">📅 Días de préstamo</label>
+          <input
+            id="dias"
+            type="number"
+            formControlName="dias"
+            min="1"
+            max="15"
+            step="1"
+            placeholder="Entre 1 y 15"
+          />
+
+          <small
+            class="error"
+            *ngIf="formulario.get('dias')?.touched &&
+                   formulario.get('dias')?.hasError('required')"
+          >
+            Los días de préstamo son obligatorios.
+          </small>
+
+          <small
+            class="error"
+            *ngIf="formulario.get('dias')?.touched &&
+                   formulario.get('dias')?.hasError('enteroInvalido')"
+          >
+            Solo se permiten números enteros.
+          </small>
+
+          <small
+            class="error"
+            *ngIf="formulario.get('dias')?.touched &&
+                   formulario.get('dias')?.hasError('diasFueraDeRango')"
+          >
+            El préstamo debe durar entre 1 y 15 días.
+          </small>
+        </div>
+
+      </div>
+
+      <div class="acciones-formulario">
+        <button class="btn btn-guardar" type="submit">
+          {{ indiceEdicion !== null
+            ? '💾 Actualizar préstamo'
+            : '➕ Registrar préstamo' }}
+        </button>
+
+        <button
+          *ngIf="indiceEdicion !== null"
+          class="btn btn-cancelar"
+          type="button"
+          (click)="cancelarEdicion()"
+        >
+          ✖ Cancelar edición
+        </button>
+      </div>
+    </form>
+
+    <div
+      *ngIf="mensaje"
+      class="mensaje"
+      [ngClass]="tipoMensaje"
+      role="status"
+    >
+      {{ mensaje }}
+    </div>
+  </section>
+
+  <section class="panel tabla-panel">
+
+    <div class="titulo-panel">
+      <div class="icono-titulo">📚</div>
+      <div>
+        <h2>Lista de préstamos</h2>
+        <p>Consulta y administra todos los registros.</p>
+      </div>
+      <span class="contador">
+        {{ prestamos.length }} registros
+      </span>
+    </div>
+
+    <div *ngIf="prestamos.length === 0" class="vacio">
+      <span class="vacio-icono">📭</span>
+      <h3>Aún no hay préstamos</h3>
+      <p>Utiliza el formulario para registrar tu primer libro.</p>
+    </div>
+
+    <div
+      class="tabla-contenedor"
+      *ngIf="prestamos.length > 0"
+    >
+      <table>
+        <thead>
+          <tr>
+            <th>N.º</th>
+            <th>Título del libro</th>
+            <th>Usuario</th>
+            <th>ISBN</th>
+            <th>Días</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr *ngFor="let prestamo of prestamos; let i = index">
+            <td>{{ i + 1 }}</td>
+            <td class="libro">{{ prestamo.titulo }}</td>
+            <td>{{ prestamo.usuario }}</td>
+            <td class="isbn">{{ prestamo.isbn }}</td>
+            <td>
+              <span class="badge-dias">
+                {{ prestamo.dias }} días
+              </span>
+            </td>
+            <td>
+              <div class="acciones-tabla">
+                <button
+                  type="button"
+                  class="btn btn-editar"
+                  (click)="editarPrestamo(i)"
+                >
+                  ✏️ Editar
+                </button>
+
+                <button
+                  type="button"
+                  class="btn btn-eliminar"
+                  (click)="eliminarPrestamo(i)"
+                >
+                  🗑️ Eliminar
+                </button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </section>
+
+  <footer>
+    <span>📚</span>
+    Sistema de Préstamo de Libros
+    <span class="punto">•</span>
+    Angular
+  </footer>
+
+</div>
