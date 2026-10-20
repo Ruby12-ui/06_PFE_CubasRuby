@@ -2,13 +2,13 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
+  AbstractControl,
   FormBuilder,
   FormGroup,
   ReactiveFormsModule,
-  Validators,
-  AbstractControl,
   ValidationErrors,
-  ValidatorFn
+  ValidatorFn,
+  Validators
 } from '@angular/forms';
 
 interface Prestamo {
@@ -16,6 +16,28 @@ interface Prestamo {
   usuario: string;
   isbn: string;
   dias: number;
+  carnet: string;
+}
+
+function sinSoloEspacios(): ValidatorFn {
+  return (control: AbstractControl): ValidationErrors | null => {
+    const valor = String(control.value ?? '');
+    return valor.trim().length > 0 ? null : { soloEspacios: true };
+  };
+}
+
+function enteroPositivo(): ValidatorFn {
+  return (control: AbstractControl): ValidationErrors | null => {
+    const valor = control.value;
+
+    if (valor === null || valor === '') {
+      return null;
+    }
+
+    return Number.isInteger(Number(valor))
+      ? null
+      : { noEsEntero: true };
+  };
 }
 
 @Component({
@@ -26,86 +48,12 @@ interface Prestamo {
   styleUrl: './prestamo-libros.component.css'
 })
 export class PrestamoLibrosComponent {
-
   formulario: FormGroup;
   prestamos: Prestamo[] = [];
-  indiceEdicion: number | null = null;
+
+  indiceEditando: number | null = null;
   mensaje = '';
-  tipoMensaje = '';
-
-  // Permite letras, tildes, espacios y signos habituales de títulos.
-  private readonly tituloValidator: ValidatorFn = (
-    control: AbstractControl
-  ): ValidationErrors | null => {
-    const valor = String(control.value ?? '').trim();
-
-    if (!valor) {
-      return null;
-    }
-
-    return /^[\p{L}\p{M}\s.,:;'"()!?¿¡\-]+$/u.test(valor)
-      ? null
-      : { tituloInvalido: true };
-  };
-
-  // Solo letras, tildes, ñ, espacios, apóstrofes y guiones.
-  private readonly usuarioValidator: ValidatorFn = (
-    control: AbstractControl
-  ): ValidationErrors | null => {
-    const valor = String(control.value ?? '').trim();
-
-    if (!valor) {
-      return null;
-    }
-
-    return /^[\p{L}\p{M}\s'-]+$/u.test(valor)
-      ? null
-      : { usuarioInvalido: true };
-  };
-
-  // El ISBN admite guiones, pero debe tener 10 o 13 dígitos.
-  private readonly isbnValidator: ValidatorFn = (
-    control: AbstractControl
-  ): ValidationErrors | null => {
-    const valor = String(control.value ?? '').trim();
-
-    if (!valor) {
-      return null;
-    }
-
-    if (!/^[0-9-]+$/.test(valor)) {
-      return { isbnCaracteres: true };
-    }
-
-    const digitos = valor.replace(/-/g, '');
-
-    return digitos.length === 10 || digitos.length === 13
-      ? null
-      : { isbnLongitud: true };
-  };
-
-  // Solo permite números enteros del 1 al 15.
-  private readonly diasValidator: ValidatorFn = (
-    control: AbstractControl
-  ): ValidationErrors | null => {
-    const valor = control.value;
-
-    if (valor === null || valor === '') {
-      return null;
-    }
-
-    const numero = Number(valor);
-
-    if (!Number.isInteger(numero)) {
-      return { enteroInvalido: true };
-    }
-
-    if (numero < 1 || numero > 15) {
-      return { diasFueraDeRango: true };
-    }
-
-    return null;
-  };
+  tipoMensaje: 'exito' | 'error' = 'exito';
 
   constructor(private fb: FormBuilder) {
     this.formulario = this.fb.group({
@@ -113,30 +61,46 @@ export class PrestamoLibrosComponent {
         '',
         [
           Validators.required,
-          Validators.maxLength(150),
-          this.tituloValidator
+          Validators.minLength(2),
+          Validators.maxLength(100),
+          Validators.pattern(/^[\p{L}\p{M}\s.,:;!?'"()\-]+$/u),
+          sinSoloEspacios()
         ]
       ],
       usuario: [
         '',
         [
           Validators.required,
-          Validators.maxLength(100),
-          this.usuarioValidator
+          Validators.minLength(3),
+          Validators.maxLength(60),
+          Validators.pattern(/^[\p{L}\p{M}\s'-]+$/u),
+          sinSoloEspacios()
         ]
       ],
+      // ISBN: exactamente 13 dígitos, sin letras ni guiones.
       isbn: [
         '',
         [
           Validators.required,
-          this.isbnValidator
+          Validators.pattern(/^[0-9]{13}$/)
         ]
       ],
+      // Días de préstamo: número entero entre 1 y 15.
       dias: [
-        7,
+        1,
         [
           Validators.required,
-          this.diasValidator
+          Validators.min(1),
+          Validators.max(15),
+          enteroPositivo()
+        ]
+      ],
+      // Carnet: LIB- seguido de cuatro dígitos.
+      carnet: [
+        '',
+        [
+          Validators.required,
+          Validators.pattern(/^LIB-[0-9]{4}$/)
         ]
       ]
     });
@@ -148,7 +112,7 @@ export class PrestamoLibrosComponent {
     if (this.formulario.invalid) {
       this.formulario.markAllAsTouched();
       this.mostrarMensaje(
-        'Revisa los campos marcados antes de continuar.',
+        'Revisa los campos marcados. Hay datos incorrectos.',
         'error'
       );
       return;
@@ -156,83 +120,104 @@ export class PrestamoLibrosComponent {
 
     const datos = this.formulario.getRawValue() as Prestamo;
 
-    // Evita espacios innecesarios en los textos.
-    datos.titulo = datos.titulo.trim();
-    datos.usuario = datos.usuario.trim();
-    datos.isbn = datos.isbn.trim();
-    datos.dias = Number(datos.dias);
+    if (this.indiceEditando !== null) {
+      this.prestamos[this.indiceEditando] = { ...datos };
+      this.prestamos = [...this.prestamos];
 
-    if (this.indiceEdicion !== null) {
-      this.prestamos[this.indiceEdicion] = { ...datos };
-
+      this.cancelarEdicion(false);
       this.mostrarMensaje(
         '¡Préstamo actualizado correctamente!',
         'exito'
       );
     } else {
-      this.prestamos.push({ ...datos });
+      this.prestamos = [...this.prestamos, { ...datos }];
+      this.formulario.reset({
+        titulo: '',
+        usuario: '',
+        isbn: '',
+        dias: 1,
+        carnet: ''
+      });
 
       this.mostrarMensaje(
         '¡Préstamo registrado correctamente!',
         'exito'
       );
     }
-
-    this.cancelarEdicion(false);
   }
 
   editarPrestamo(indice: number): void {
-    this.indiceEdicion = indice;
-    this.formulario.reset(this.prestamos[indice]);
+    const prestamo = this.prestamos[indice];
+
+    this.indiceEditando = indice;
+    this.formulario.reset({ ...prestamo });
     this.mensaje = '';
 
-    this.formulario.markAsPristine();
-    this.formulario.markAsUntouched();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
-  cancelarEdicion(mostrarMensaje = true): void {
-    this.indiceEdicion = null;
+  cancelarEdicion(mostrarAviso = true): void {
+    this.indiceEditando = null;
 
     this.formulario.reset({
       titulo: '',
       usuario: '',
       isbn: '',
-      dias: 7
+      dias: 1,
+      carnet: ''
     });
 
-    if (mostrarMensaje) {
-      this.mostrarMensaje('Edición cancelada.', 'info');
+    if (mostrarAviso) {
+      this.mostrarMensaje('Se limpió el formulario.', 'exito');
     }
   }
 
   eliminarPrestamo(indice: number): void {
     const confirmar = window.confirm(
-      `¿Deseas eliminar el préstamo de "${this.prestamos[indice].titulo}"?`
+      '¿Estás segura de que deseas eliminar este préstamo?'
     );
 
     if (!confirmar) {
       return;
     }
 
-    this.prestamos.splice(indice, 1);
+    this.prestamos = this.prestamos.filter(
+      (_, posicion) => posicion !== indice
+    );
 
-    if (this.indiceEdicion === indice) {
+    if (this.indiceEditando === indice) {
       this.cancelarEdicion(false);
     } else if (
-      this.indiceEdicion !== null &&
-      this.indiceEdicion > indice
+      this.indiceEditando !== null &&
+      this.indiceEditando > indice
     ) {
-      this.indiceEdicion--;
+      this.indiceEditando--;
     }
 
-    this.mostrarMensaje(
-      'El préstamo fue eliminado correctamente.',
-      'exito'
+    this.mostrarMensaje('Préstamo eliminado correctamente.', 'exito');
+  }
+
+  mostrarMensaje(
+    texto: string,
+    tipo: 'exito' | 'error'
+  ): void {
+    this.mensaje = texto;
+    this.tipoMensaje = tipo;
+  }
+
+  tieneError(campo: string, error: string): boolean {
+    const control = this.formulario.get(campo);
+
+    return !!(
+      control &&
+      control.touched &&
+      control.hasError(error)
     );
   }
 
-  private mostrarMensaje(mensaje: string, tipo: string): void {
-    this.mensaje = mensaje;
-    this.tipoMensaje = tipo;
+  campoInvalido(campo: string): boolean {
+    const control = this.formulario.get(campo);
+
+    return !!(control && control.invalid && control.touched);
   }
 }

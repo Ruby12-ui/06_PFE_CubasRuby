@@ -1,310 +1,276 @@
 
 <div class="pagina">
-
-  <header class="hero">
-    <div class="hero-icon">📚</div>
-    <div class="hero-texto">
-      <span class="etiqueta">BIBLIOTECA DIGITAL</span>
-      <h1>Sistema de Préstamo de Libros</h1>
-      <p>Administra, organiza y controla tus préstamos de manera sencilla.</p>
-    </div>
+  <header class="encabezado">
+    <div class="icono-libro">📚</div>
+    <p class="subtitulo">BIBLIOTECA</p>
+    <h1>Sistema de Préstamo de Libros</h1>
+    <p>Registra, consulta y administra los préstamos de libros.</p>
   </header>
 
-  <section class="resumen">
-    <article class="tarjeta-resumen">
-      <div class="icono-resumen morado">📖</div>
-      <div>
-        <p>Préstamos registrados</p>
-        <h2>{{ prestamos.length }}</h2>
-      </div>
-    </article>
+  <main class="contenido">
+    <section class="resumen">
+      <article class="tarjeta-resumen">
+        <span class="resumen-icono">📖</span>
+        <div>
+          <p>Total de préstamos</p>
+          <h2>{{ prestamos.length }}</h2>
+        </div>
+      </article>
 
-    <article class="tarjeta-resumen">
-      <div class="icono-resumen rosa">✨</div>
-      <div>
-        <p>Estado del sistema</p>
-        <h2>Activo</h2>
-      </div>
-    </article>
-  </section>
+      <article class="tarjeta-resumen">
+        <span class="resumen-icono">📝</span>
+        <div>
+          <p>Estado del formulario</p>
+          <h2>{{ formulario.valid ? 'Válido' : 'Pendiente' }}</h2>
+        </div>
+      </article>
+    </section>
 
-  <section class="panel formulario-panel">
-
-    <div class="titulo-panel">
-      <div class="icono-titulo">
-        {{ indiceEdicion !== null ? '✏️' : '📝' }}
+    <section class="panel formulario-panel">
+      <div class="titulo-panel">
+        <div>
+          <h2>
+            {{ indiceEditando !== null ? '✏️ Editar préstamo' : '➕ Registrar préstamo' }}
+          </h2>
+          <p>Completa todos los campos correctamente.</p>
+        </div>
       </div>
-      <div>
-        <h2>
-          {{ indiceEdicion !== null
-            ? 'Editar préstamo'
-            : 'Registrar nuevo préstamo' }}
-        </h2>
-        <p>
-          Completa los datos solicitados para gestionar el préstamo.
+
+      <div
+        *ngIf="mensaje"
+        class="alerta"
+        [ngClass]="{
+          'alerta-exito': tipoMensaje === 'exito',
+          'alerta-error': tipoMensaje === 'error'
+        }"
+        role="status"
+        aria-live="polite"
+      >
+        {{ mensaje }}
+      </div>
+
+      <form [formGroup]="formulario" (ngSubmit)="guardarPrestamo()" novalidate>
+        <div class="campos">
+          <div class="campo">
+            <label for="titulo">Título del libro</label>
+            <input
+              id="titulo"
+              type="text"
+              formControlName="titulo"
+              placeholder="Ej. Cien años de soledad"
+              maxlength="100"
+              [class.invalido]="campoInvalido('titulo')"
+            />
+
+            <small class="error" *ngIf="tieneError('titulo', 'required')">
+              El título es obligatorio.
+            </small>
+            <small class="error" *ngIf="tieneError('titulo', 'soloEspacios')">
+              No escribas únicamente espacios.
+            </small>
+            <small class="error" *ngIf="tieneError('titulo', 'minlength')">
+              El título debe tener al menos 2 caracteres.
+            </small>
+            <small class="error" *ngIf="tieneError('titulo', 'maxlength')">
+              El título no puede superar los 100 caracteres.
+            </small>
+            <small class="error" *ngIf="tieneError('titulo', 'pattern')">
+              No se permiten números ni símbolos no admitidos.
+            </small>
+          </div>
+
+          <div class="campo">
+            <label for="usuario">Nombre del usuario</label>
+            <input
+              id="usuario"
+              type="text"
+              formControlName="usuario"
+              placeholder="Ej. Ruby Cubas"
+              maxlength="60"
+              [class.invalido]="campoInvalido('usuario')"
+            />
+
+            <small class="error" *ngIf="tieneError('usuario', 'required')">
+              El nombre del usuario es obligatorio.
+            </small>
+            <small class="error" *ngIf="tieneError('usuario', 'soloEspacios')">
+              El nombre no puede contener solo espacios.
+            </small>
+            <small class="error" *ngIf="tieneError('usuario', 'minlength')">
+              Escribe al menos 3 caracteres.
+            </small>
+            <small class="error" *ngIf="tieneError('usuario', 'maxlength')">
+              El nombre no puede superar los 60 caracteres.
+            </small>
+            <small class="error" *ngIf="tieneError('usuario', 'pattern')">
+              El nombre solo admite letras, espacios, apóstrofes y guiones.
+            </small>
+          </div>
+
+          <div class="campo">
+            <label for="isbn">Código ISBN</label>
+            <input
+              id="isbn"
+              type="text"
+              formControlName="isbn"
+              placeholder="Ej. 9781234567890"
+              inputmode="numeric"
+              maxlength="13"
+              [class.invalido]="campoInvalido('isbn')"
+            />
+
+            <small class="ayuda">Debe contener exactamente 13 dígitos.</small>
+            <small class="error" *ngIf="tieneError('isbn', 'required')">
+              El ISBN es obligatorio.
+            </small>
+            <small class="error" *ngIf="tieneError('isbn', 'pattern')">
+              El ISBN debe tener exactamente 13 números, sin letras ni guiones.
+            </small>
+          </div>
+
+          <div class="campo">
+            <label for="dias">Días de préstamo</label>
+            <input
+              id="dias"
+              type="number"
+              formControlName="dias"
+              min="1"
+              max="15"
+              step="1"
+              [class.invalido]="campoInvalido('dias')"
+            />
+
+            <small class="ayuda">Mínimo 1 día y máximo 15 días.</small>
+            <small class="error" *ngIf="tieneError('dias', 'required')">
+              Los días de préstamo son obligatorios.
+            </small>
+            <small class="error" *ngIf="tieneError('dias', 'min')">
+              El préstamo debe ser de al menos 1 día.
+            </small>
+            <small class="error" *ngIf="tieneError('dias', 'max')">
+              No se permite prestar libros por más de 15 días.
+            </small>
+            <small class="error" *ngIf="tieneError('dias', 'noEsEntero')">
+              Los días deben ser un número entero.
+            </small>
+          </div>
+
+          <div class="campo campo-completo">
+            <label for="carnet">Carnet de biblioteca</label>
+            <input
+              id="carnet"
+              type="text"
+              formControlName="carnet"
+              placeholder="Ej. LIB-1234"
+              maxlength="8"
+              [class.invalido]="campoInvalido('carnet')"
+            />
+
+            <small class="ayuda">Formato obligatorio: LIB- seguido de 4 dígitos.</small>
+            <small class="error" *ngIf="tieneError('carnet', 'required')">
+              El carnet de biblioteca es obligatorio.
+            </small>
+            <small class="error" *ngIf="tieneError('carnet', 'pattern')">
+              Formato incorrecto. Usa LIB-1234 como ejemplo.
+            </small>
+          </div>
+        </div>
+
+        <div class="acciones">
+          <button
+            class="boton boton-principal"
+            type="submit"
+            [disabled]="formulario.invalid"
+          >
+            {{ indiceEditando !== null ? '💾 Actualizar préstamo' : '📚 Registrar préstamo' }}
+          </button>
+
+          <button
+            class="boton boton-secundario"
+            type="button"
+            (click)="cancelarEdicion()"
+          >
+            {{ indiceEditando !== null ? 'Cancelar edición' : 'Limpiar formulario' }}
+          </button>
+        </div>
+
+        <p class="nota-formulario">
+          Los campos deben ser válidos para habilitar el botón de registro.
         </p>
-      </div>
-    </div>
+      </form>
+    </section>
 
-    <form
-      [formGroup]="formulario"
-      (ngSubmit)="guardarPrestamo()"
-      novalidate
-    >
-      <div class="campos">
-
-        <div class="campo">
-          <label for="titulo">📘 Título del libro</label>
-          <input
-            id="titulo"
-            type="text"
-            formControlName="titulo"
-            placeholder="Ej. Cien años de soledad"
-            maxlength="150"
-            autocomplete="off"
-          />
-
-          <small
-            class="error"
-            *ngIf="formulario.get('titulo')?.touched &&
-                   formulario.get('titulo')?.hasError('required')"
-          >
-            El título del libro es obligatorio.
-          </small>
-
-          <small
-            class="error"
-            *ngIf="formulario.get('titulo')?.touched &&
-                   formulario.get('titulo')?.hasError('tituloInvalido')"
-          >
-            No se permiten números ni caracteres no válidos.
-          </small>
-
-          <small
-            class="error"
-            *ngIf="formulario.get('titulo')?.touched &&
-                   formulario.get('titulo')?.hasError('maxlength')"
-          >
-            Máximo 150 caracteres.
-          </small>
+    <section class="panel lista-panel">
+      <div class="titulo-panel">
+        <div>
+          <h2>📋 Lista de préstamos</h2>
+          <p>Préstamos registrados durante esta sesión.</p>
         </div>
-
-        <div class="campo">
-          <label for="usuario">👤 Nombre del usuario</label>
-          <input
-            id="usuario"
-            type="text"
-            formControlName="usuario"
-            placeholder="Ej. María Pérez"
-            maxlength="100"
-            autocomplete="off"
-          />
-
-          <small
-            class="error"
-            *ngIf="formulario.get('usuario')?.touched &&
-                   formulario.get('usuario')?.hasError('required')"
-          >
-            El nombre del usuario es obligatorio.
-          </small>
-
-          <small
-            class="error"
-            *ngIf="formulario.get('usuario')?.touched &&
-                   formulario.get('usuario')?.hasError('usuarioInvalido')"
-          >
-            El nombre solo puede contener letras y espacios.
-          </small>
-
-          <small
-            class="error"
-            *ngIf="formulario.get('usuario')?.touched &&
-                   formulario.get('usuario')?.hasError('maxlength')"
-          >
-            Máximo 100 caracteres.
-          </small>
-        </div>
-
-        <div class="campo">
-          <label for="isbn">🔖 Código ISBN</label>
-          <input
-            id="isbn"
-            type="text"
-            formControlName="isbn"
-            placeholder="Ej. 9780307474728"
-            inputmode="numeric"
-            autocomplete="off"
-          />
-
-          <small
-            class="error"
-            *ngIf="formulario.get('isbn')?.touched &&
-                   formulario.get('isbn')?.hasError('required')"
-          >
-            El ISBN es obligatorio.
-          </small>
-
-          <small
-            class="error"
-            *ngIf="formulario.get('isbn')?.touched &&
-                   formulario.get('isbn')?.hasError('isbnCaracteres')"
-          >
-            El ISBN solo admite números y guiones.
-          </small>
-
-          <small
-            class="error"
-            *ngIf="formulario.get('isbn')?.touched &&
-                   formulario.get('isbn')?.hasError('isbnLongitud')"
-          >
-            El ISBN debe tener 10 o 13 dígitos.
-          </small>
-        </div>
-
-        <div class="campo">
-          <label for="dias">📅 Días de préstamo</label>
-          <input
-            id="dias"
-            type="number"
-            formControlName="dias"
-            min="1"
-            max="15"
-            step="1"
-            placeholder="Entre 1 y 15"
-          />
-
-          <small
-            class="error"
-            *ngIf="formulario.get('dias')?.touched &&
-                   formulario.get('dias')?.hasError('required')"
-          >
-            Los días de préstamo son obligatorios.
-          </small>
-
-          <small
-            class="error"
-            *ngIf="formulario.get('dias')?.touched &&
-                   formulario.get('dias')?.hasError('enteroInvalido')"
-          >
-            Solo se permiten números enteros.
-          </small>
-
-          <small
-            class="error"
-            *ngIf="formulario.get('dias')?.touched &&
-                   formulario.get('dias')?.hasError('diasFueraDeRango')"
-          >
-            El préstamo debe durar entre 1 y 15 días.
-          </small>
-        </div>
-
+        <span class="contador">{{ prestamos.length }} registro(s)</span>
       </div>
 
-      <div class="acciones-formulario">
-        <button class="btn btn-guardar" type="submit">
-          {{ indiceEdicion !== null
-            ? '💾 Actualizar préstamo'
-            : '➕ Registrar préstamo' }}
-        </button>
+      <div class="tabla-contenedor" *ngIf="prestamos.length > 0; else listaVacia">
+        <table>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Libro</th>
+              <th>Usuario</th>
+              <th>ISBN</th>
+              <th>Días</th>
+              <th>Carnet</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
 
-        <button
-          *ngIf="indiceEdicion !== null"
-          class="btn btn-cancelar"
-          type="button"
-          (click)="cancelarEdicion()"
-        >
-          ✖ Cancelar edición
-        </button>
+          <tbody>
+            <tr *ngFor="let prestamo of prestamos; let i = index">
+              <td>{{ i + 1 }}</td>
+              <td class="titulo-libro">{{ prestamo.titulo }}</td>
+              <td>{{ prestamo.usuario }}</td>
+              <td>{{ prestamo.isbn }}</td>
+              <td>
+                <span class="etiqueta-dias">
+                  {{ prestamo.dias }} día(s)
+                </span>
+              </td>
+              <td>{{ prestamo.carnet }}</td>
+              <td>
+                <div class="acciones-tabla">
+                  <button
+                    class="boton-tabla boton-editar"
+                    type="button"
+                    (click)="editarPrestamo(i)"
+                    aria-label="Editar préstamo"
+                  >
+                    Editar
+                  </button>
+                  <button
+                    class="boton-tabla boton-eliminar"
+                    type="button"
+                    (click)="eliminarPrestamo(i)"
+                    aria-label="Eliminar préstamo"
+                  >
+                    Eliminar
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
-    </form>
 
-    <div
-      *ngIf="mensaje"
-      class="mensaje"
-      [ngClass]="tipoMensaje"
-      role="status"
-    >
-      {{ mensaje }}
-    </div>
-  </section>
+      <ng-template #listaVacia>
+        <div class="lista-vacia">
+          <span>📚</span>
+          <h3>Aún no hay préstamos registrados</h3>
+          <p>Completa el formulario para agregar el primer préstamo.</p>
+        </div>
+      </ng-template>
+    </section>
+  </main>
 
-  <section class="panel tabla-panel">
-
-    <div class="titulo-panel">
-      <div class="icono-titulo">📚</div>
-      <div>
-        <h2>Lista de préstamos</h2>
-        <p>Consulta y administra todos los registros.</p>
-      </div>
-      <span class="contador">
-        {{ prestamos.length }} registros
-      </span>
-    </div>
-
-    <div *ngIf="prestamos.length === 0" class="vacio">
-      <span class="vacio-icono">📭</span>
-      <h3>Aún no hay préstamos</h3>
-      <p>Utiliza el formulario para registrar tu primer libro.</p>
-    </div>
-
-    <div
-      class="tabla-contenedor"
-      *ngIf="prestamos.length > 0"
-    >
-      <table>
-        <thead>
-          <tr>
-            <th>N.º</th>
-            <th>Título del libro</th>
-            <th>Usuario</th>
-            <th>ISBN</th>
-            <th>Días</th>
-            <th>Acciones</th>
-          </tr>
-        </thead>
-
-        <tbody>
-          <tr *ngFor="let prestamo of prestamos; let i = index">
-            <td>{{ i + 1 }}</td>
-            <td class="libro">{{ prestamo.titulo }}</td>
-            <td>{{ prestamo.usuario }}</td>
-            <td class="isbn">{{ prestamo.isbn }}</td>
-            <td>
-              <span class="badge-dias">
-                {{ prestamo.dias }} días
-              </span>
-            </td>
-            <td>
-              <div class="acciones-tabla">
-                <button
-                  type="button"
-                  class="btn btn-editar"
-                  (click)="editarPrestamo(i)"
-                >
-                  ✏️ Editar
-                </button>
-
-                <button
-                  type="button"
-                  class="btn btn-eliminar"
-                  (click)="eliminarPrestamo(i)"
-                >
-                  🗑️ Eliminar
-                </button>
-              </div>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-  </section>
-
-  <footer>
-    <span>📚</span>
-    Sistema de Préstamo de Libros
-    <span class="punto">•</span>
-    Angular
+  <footer class="pie">
+    Sistema de Préstamo de Libros · Angular Reactive Forms
   </footer>
-
 </div>
