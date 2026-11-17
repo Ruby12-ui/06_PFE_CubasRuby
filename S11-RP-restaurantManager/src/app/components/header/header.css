@@ -1,0 +1,53 @@
+
+.header {
+  height: 85px;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 30px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+
+.header h2 {
+  margin: 0;
+  color: #173d32;
+  font-size: 21px;
+}
+
+.header p {
+  margin: 5px 0 0;
+  color: #777;
+  font-size: 13px;
+}
+
+.user {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.user span {
+  background: #e9f2ed;
+  padding: 12px;
+  border-radius: 50%;
+}
+
+.user strong,
+.user small {
+  display: block;
+}
+
+.user small {
+  color: #888;
+  margin-top: 4px;
+}
+
+@media (max-width: 600px) {
+  .header {
+    padding: 15px;
+    height: auto;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+}

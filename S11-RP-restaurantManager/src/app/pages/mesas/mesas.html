@@ -1,0 +1,73 @@
+
+<div class="tables-page">
+
+  <div class="tables-heading">
+    <div>
+      <span class="eyebrow">RESTAURANTE / DISTRIBUCIÓN</span>
+      <h1>Gestión de mesas</h1>
+      <p>Controla la ocupación y disponibilidad de tus mesas.</p>
+    </div>
+    <div class="table-total">
+      <strong>{{ mesas.length }}</strong>
+      <span>Mesas totales</span>
+    </div>
+  </div>
+
+  <div class="table-stats">
+    <div class="table-stat available-stat">
+      <span>🟢</span>
+      <div><strong>{{ disponibles }}</strong><small>Disponibles</small></div>
+    </div>
+    <div class="table-stat occupied-stat">
+      <span>🔴</span>
+      <div><strong>{{ ocupadas }}</strong><small>Ocupadas</small></div>
+    </div>
+    <div class="table-stat reserved-stat">
+      <span>🟡</span>
+      <div><strong>{{ reservadas }}</strong><small>Reservadas</small></div>
+    </div>
+  </div>
+
+  <section class="floor-panel">
+    <div class="floor-heading">
+      <div>
+        <h2>🪑 Plano del restaurante</h2>
+        <p>Selecciona una mesa para cambiar su disponibilidad.</p>
+      </div>
+      <span class="floor-label">SALÓN PRINCIPAL</span>
+    </div>
+
+    <div class="legend">
+      <span><i class="green-dot"></i> Disponible</span>
+      <span><i class="red-dot"></i> Ocupada</span>
+      <span><i class="yellow-dot"></i> Reservada</span>
+    </div>
+
+    <div class="floor-grid">
+      @for (mesa of mesas; track mesa.numero) {
+        <button
+          class="table-item"
+          [class.available]="mesa.estado === 'Disponible'"
+          [class.occupied]="mesa.estado === 'Ocupada'"
+          [class.reserved]="mesa.estado === 'Reservada'"
+          (click)="cambiarEstado(mesa)">
+
+          <span class="chair">🪑</span>
+          <strong>Mesa {{ mesa.numero.toString().padStart(2, '0') }}</strong>
+          <span class="capacity">👥 {{ mesa.capacidad }} personas</span>
+          <span class="table-state">{{ mesa.estado }}</span>
+          @if (mesa.cliente) {
+            <small>{{ mesa.cliente }}</small>
+          }
+          <span class="table-action">Cambiar estado</span>
+        </button>
+      }
+    </div>
+  </section>
+
+  <div class="tables-note">
+    💡 Pulsa una mesa disponible para ocuparla o una ocupada para liberarla.
+    Las reservas se muestran como ejemplo.
+  </div>
+
+</div>

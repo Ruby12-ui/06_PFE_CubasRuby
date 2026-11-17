@@ -1,0 +1,56 @@
+
+<div class="categories-page">
+
+  <div class="categories-heading">
+    <div>
+      <span class="eyebrow">MENÚ / ORGANIZACIÓN</span>
+      <h1>Categorías</h1>
+      <p>Organiza los productos de tu restaurante.</p>
+    </div>
+
+    <div class="category-summary">
+      <strong>{{ categorias.length }}</strong>
+      <span>Categorías activas</span>
+    </div>
+  </div>
+
+  <div class="category-banner">
+    <div>
+      <span>🍽️ ORGANIZA TU MENÚ</span>
+      <h2>Todo en su lugar, todo más delicioso.</h2>
+      <p>Administra las diferentes secciones de tu carta.</p>
+    </div>
+    <div class="banner-emoji">🥘</div>
+  </div>
+
+  <div class="category-grid">
+    @for (categoria of categorias; track categoria.nombre) {
+      <article class="category-card">
+        <div class="category-image">
+          <img [src]="categoria.imagen" [alt]="categoria.nombre">
+          <span class="category-emoji">{{ categoria.icono }}</span>
+        </div>
+
+        <div class="category-content">
+          <span class="category-label">CATEGORÍA</span>
+          <h3>{{ categoria.nombre }}</h3>
+          <p>{{ categoria.descripcion }}</p>
+
+          <div class="category-bottom">
+            <strong>{{ categoria.cantidad }} platos</strong>
+            <span>Activa ●</span>
+          </div>
+        </div>
+      </article>
+    }
+  </div>
+
+  <div class="category-tip">
+    <span>💡</span>
+    <div>
+      <strong>Organización del menú</strong>
+      <p>Las categorías ayudan a encontrar rápidamente los productos de tu carta.</p>
+    </div>
+  </div>
+
+</div>

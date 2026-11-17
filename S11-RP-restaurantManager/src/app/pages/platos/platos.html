@@ -1,0 +1,68 @@
+
+<div class="page-platos">
+
+  <div class="page-heading">
+    <div>
+      <span class="eyebrow">MENÚ / ADMINISTRACIÓN</span>
+      <h1>Gestión de platos</h1>
+      <p>Administra el menú y los productos de tu restaurante.</p>
+    </div>
+    <div class="total-box">
+      <strong>{{ platos.length }}</strong>
+      <span>Platos registrados</span>
+    </div>
+  </div>
+
+  <div class="toolbar">
+    <input
+      type="text"
+      placeholder="🔍 Buscar un plato..."
+      [value]="busqueda"
+      (input)="busqueda = $any($event.target).value">
+
+    <select
+      [value]="categoriaSeleccionada"
+      (change)="categoriaSeleccionada = $any($event.target).value">
+      <option>Todos</option>
+      <option>Entradas</option>
+      <option>Platos principales</option>
+      <option>Postres</option>
+    </select>
+  </div>
+
+  <div class="food-grid">
+    @for (plato of platosFiltrados; track plato.nombre) {
+      <article class="food-card">
+        <div class="food-image">
+          <img [src]="plato.imagen" [alt]="plato.nombre">
+          <span class="food-status"
+            [class.unavailable]="!plato.disponible">
+            {{ plato.disponible ? 'Disponible' : 'Agotado' }}
+          </span>
+        </div>
+
+        <div class="food-content">
+          <span class="food-category">{{ plato.categoria }}</span>
+          <h3>{{ plato.nombre }}</h3>
+          <p>{{ plato.descripcion }}</p>
+
+          <div class="food-footer">
+            <strong>S/ {{ plato.precio.toFixed(2) }}</strong>
+            <button
+              [class.off]="!plato.disponible"
+              (click)="cambiarDisponibilidad(plato)">
+              {{ plato.disponible ? 'Desactivar' : 'Activar' }}
+            </button>
+          </div>
+        </div>
+      </article>
+    } @empty {
+      <div class="empty-state">
+        <span>🔎</span>
+        <h3>No encontramos platos</h3>
+        <p>Prueba con otro nombre o categoría.</p>
+      </div>
+    }
+  </div>
+
+</div>

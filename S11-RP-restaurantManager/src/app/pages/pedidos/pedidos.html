@@ -1,0 +1,125 @@
+
+<div class="orders-page">
+
+  <div class="orders-heading">
+    <div>
+      <span class="eyebrow">RESTAURANTE / OPERACIONES</span>
+      <h1>Gestión de pedidos</h1>
+      <p>Supervisa y administra las órdenes de tus clientes.</p>
+    </div>
+
+    <div class="orders-total">
+      <span>VENTAS REGISTRADAS</span>
+      <strong>S/ {{ totalVentas.toFixed(2) }}</strong>
+    </div>
+  </div>
+
+  <div class="orders-stats">
+    <div class="order-stat">
+      <span class="stat-icon">📋</span>
+      <div>
+        <strong>{{ pedidos.length }}</strong>
+        <small>Pedidos totales</small>
+      </div>
+    </div>
+
+    <div class="order-stat">
+      <span class="stat-icon pending-icon">⏳</span>
+      <div>
+        <strong>{{ pendientes }}</strong>
+        <small>Pendientes</small>
+      </div>
+    </div>
+
+    <div class="order-stat">
+      <span class="stat-icon preparing-icon">👨‍🍳</span>
+      <div>
+        <strong>{{ enPreparacion }}</strong>
+        <small>En preparación</small>
+      </div>
+    </div>
+
+    <div class="order-stat">
+      <span class="stat-icon delivered-icon">✅</span>
+      <div>
+        <strong>{{ entregados }}</strong>
+        <small>Entregados</small>
+      </div>
+    </div>
+  </div>
+
+  <section class="orders-panel">
+
+    <div class="orders-toolbar">
+      <div>
+        <h2>Lista de pedidos</h2>
+        <p>Control de órdenes registradas</p>
+      </div>
+
+      <select [value]="filtro"
+        (change)="filtro = $any($event.target).value">
+        <option>Todos</option>
+        <option>Pendiente</option>
+        <option>En preparación</option>
+        <option>Entregado</option>
+      </select>
+    </div>
+
+    <div class="orders-list">
+
+      @for (pedido of pedidosFiltrados; track pedido.id) {
+        <article class="order-card">
+
+          <img [src]="pedido.imagen" [alt]="pedido.platos">
+
+          <div class="order-info">
+            <div class="order-title">
+              <strong>{{ pedido.id }}</strong>
+              <span
+                class="order-badge"
+                [class.pending]="pedido.estado === 'Pendiente'"
+                [class.preparing]="pedido.estado === 'En preparación'"
+                [class.delivered]="pedido.estado === 'Entregado'">
+                {{ pedido.estado }}
+              </span>
+            </div>
+
+            <h3>{{ pedido.cliente }}</h3>
+            <p>{{ pedido.platos }}</p>
+
+            <div class="order-details">
+              <span>🪑 {{ pedido.mesa }}</span>
+              <span>🕒 {{ pedido.hora }}</span>
+            </div>
+          </div>
+
+          <div class="order-price">
+            <strong>S/ {{ pedido.total.toFixed(2) }}</strong>
+
+            <button (click)="cambiarEstado(pedido)">
+              {{ pedido.estado === 'Pendiente'
+                ? 'Preparar pedido'
+                : pedido.estado === 'En preparación'
+                  ? 'Marcar entregado'
+                  : 'Reabrir pedido' }}
+            </button>
+          </div>
+
+        </article>
+      } @empty {
+        <div class="orders-empty">
+          <span>📭</span>
+          <h3>No hay pedidos en esta categoría</h3>
+          <p>Selecciona otro filtro para ver más pedidos.</p>
+        </div>
+      }
+
+    </div>
+  </section>
+
+  <div class="orders-tip">
+    💡 Puedes actualizar el estado de cada pedido desde su tarjeta.
+    Los cambios se reflejan automáticamente en los indicadores.
+  </div>
+
+</div>
