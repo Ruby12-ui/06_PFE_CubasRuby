@@ -1,0 +1,141 @@
+
+.welcome-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 25px;
+  background:
+    linear-gradient(135deg, rgba(13, 42, 34, 0.94), rgba(23, 61, 50, 0.88)),
+    url('https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=1800&q=85');
+  background-position: center;
+  background-size: cover;
+}
+
+.welcome-card {
+  width: 100%;
+  max-width: 570px;
+  padding: 55px 45px;
+  text-align: center;
+  background: white;
+  border-radius: 22px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+  animation: aparecer 0.7s ease;
+}
+
+.welcome-icon {
+  width: 85px;
+  height: 85px;
+  margin: 0 auto 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #e9f2ed;
+  border-radius: 50%;
+  font-size: 42px;
+}
+
+.welcome-label {
+  color: #b18a45;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 3px;
+}
+
+.welcome-card h1 {
+  margin: 18px 0 8px;
+  color: #173d32;
+  font-family: Georgia, serif;
+  font-size: 44px;
+}
+
+.welcome-card h2 {
+  margin: 0 0 15px;
+  color: #455d53;
+  font-size: 17px;
+  font-weight: 600;
+}
+
+.welcome-card p {
+  max-width: 410px;
+  margin: 0 auto;
+  color: #777;
+  font-size: 14px;
+  line-height: 1.8;
+}
+
+.welcome-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  margin: 25px 0;
+  padding: 11px 16px;
+  border-radius: 30px;
+  background: #edf7f0;
+  color: #237447;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.status-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #28a45c;
+}
+
+.continue-button {
+  width: 100%;
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  border: none;
+  border-radius: 10px;
+  background: #173d32;
+  color: white;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.25s ease;
+}
+
+.continue-button:hover {
+  background: #245b48;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(23, 61, 50, 0.2);
+}
+
+.continue-button span {
+  font-size: 20px;
+}
+
+.welcome-footer {
+  margin-top: 30px;
+  color: #aaa;
+  font-size: 10px;
+  letter-spacing: 2px;
+}
+
+@keyframes aparecer {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 500px) {
+  .welcome-card {
+    padding: 40px 24px;
+  }
+
+  .welcome-card h1 {
+    font-size: 36px;
+  }
+}

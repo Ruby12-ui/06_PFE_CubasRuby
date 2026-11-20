@@ -1,12 +1,16 @@
 
-<div class="layout">
-  <app-sidebar></app-sidebar>
+@if (mostrarDashboard) {
+  <div class="layout">
+    <app-sidebar></app-sidebar>
 
-  <main class="main-content">
-    <app-header></app-header>
+    <main class="main-content">
+      <app-header></app-header>
 
-    <section class="page-content">
-      <router-outlet></router-outlet>
-    </section>
-  </main>
-</div>
+      <section class="page-content">
+        <router-outlet></router-outlet>
+      </section>
+    </main>
+  </div>
+} @else {
+  <router-outlet></router-outlet>
+}

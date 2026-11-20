@@ -1,12 +1,13 @@
 
 .header {
-  height: 85px;
+  min-height: 85px;
   background: white;
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 0 30px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  gap: 20px;
 }
 
 .header h2 {
@@ -27,7 +28,7 @@
   gap: 12px;
 }
 
-.user span {
+.user > span {
   background: #e9f2ed;
   padding: 12px;
   border-radius: 50%;
@@ -43,11 +44,47 @@
   margin-top: 4px;
 }
 
+.logout-button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 16px;
+  margin-left: 12px;
+  border: 1px solid #e5eae7;
+  border-radius: 8px;
+  background: white;
+  color: #173d32;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.logout-button:hover {
+  background: #173d32;
+  color: white;
+  border-color: #173d32;
+}
+
+.logout-button span {
+  font-size: 18px;
+  background: transparent;
+  padding: 0;
+}
+
 @media (max-width: 600px) {
   .header {
     padding: 15px;
     height: auto;
-    gap: 10px;
+    gap: 15px;
     flex-wrap: wrap;
+  }
+
+  .user {
+    flex-wrap: wrap;
+  }
+
+  .logout-button {
+    margin-left: 0;
   }
 }
